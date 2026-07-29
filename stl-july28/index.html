@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STL Cardinals — July 28</title>
+  <style>
+    :root {
+      --bg: #0f0f0f;
+      --surface: #1a1a1a;
+      --surface2: #222222;
+      --border: #2e2e2e;
+      --accent: #c41e3a;
+      --accent2: #e8382f;
+      --gold: #d4a843;
+      --text: #f0f0f0;
+      --text2: #a0a0a0;
+      --text3: #707070;
+      --green: #4caf6a;
+      --blue: #4a9edd;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 15px;
+      line-height: 1.5;
+      padding: 0 0 60px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+    .hero {
+      background: linear-gradient(160deg, #1a0000 0%, #2a0a0a 50%, #0f0f0f 100%);
+      padding: 28px 20px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent2);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .hero-title {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+    .hero-subtitle {
+      font-size: 14px;
+      color: var(--text2);
+      margin-bottom: 16px;
+    }
+    .hero-badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .badge {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 12px;
+      color: var(--text2);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .badge.vip {
+      background: rgba(212, 168, 67, 0.12);
+      border-color: var(--gold);
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    /* SECTION HEADERS */
+    .section {
+      padding: 0 16px;
+      margin-top: 20px;
+    }
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text3);
+      font-weight: 600;
+      margin-bottom: 10px;
+      padding: 0 4px;
+    }
+
+    /* DAY CARDS */
+    .day-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .day-header {
+      background: var(--surface2);
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .day-name {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text);
+    }
+    .day-date {
+      font-size: 12px;
+      color: var(--text3);
+    }
+
+    /* TIMELINE */
+    .timeline {
+      padding: 8px 0;
+    }
+    .timeline-item {
+      display: flex;
+      padding: 10px 16px;
+      gap: 14px;
+      position: relative;
+    }
+    .timeline-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 38px;
+      top: 34px;
+      bottom: -10px;
+      width: 1px;
+      background: var(--border);
+    }
+    .timeline-time {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text3);
+      min-width: 52px;
+      padding-top: 2px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .timeline-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--border);
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+    .timeline-dot.accent { background: var(--accent2); }
+    .timeline-dot.gold { background: var(--gold); }
+    .timeline-dot.green { background: var(--green); }
+    .timeline-dot.blue { background: var(--blue); }
+
+    .timeline-content {
+      flex: 1;
+      padding-bottom: 2px;
+    }
+    .timeline-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+    .timeline-detail {
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.4;
+    }
+    .timeline-note {
+      font-size: 12px;
+      color: var(--text3);
+      margin-top: 3px;
+      font-style: italic;
+    }
+    .timeline-tag {
+      display: inline-block;
+      background: rgba(196, 30, 58, 0.15);
+      border: 1px solid rgba(196, 30, 58, 0.3);
+      color: var(--accent2);
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 4px;
+      margin-top: 4px;
+      font-weight: 600;
+    }
+    .timeline-tag.gold-tag {
+      background: rgba(212, 168, 67, 0.12);
+      border-color: rgba(212, 168, 67, 0.3);
+      color: var(--gold);
+    }
+
+    /* INFO CARDS */
+    .info-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .info-card-header {
+      padding: 14px 16px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .info-card-title {
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .info-card-sub {
+      font-size: 12px;
+      color: var(--text2);
+      margin-top: 2px;
+    }
+    .info-card-badge {
+      font-size: 11px;
+      font-weight: 700;
+      background: rgba(76, 175, 106, 0.15);
+      border: 1px solid rgba(76, 175, 106, 0.3);
+      color: var(--green);
+      padding: 3px 9px;
+      border-radius: 6px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .info-card-badge.gold-badge {
+      background: rgba(212, 168, 67, 0.12);
+      border-color: rgba(212, 168, 67, 0.3);
+      color: var(--gold);
+    }
+    .info-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0;
+    }
+    .info-rows {
+      padding: 8px 0;
+    }
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 7px 16px;
+      gap: 12px;
+    }
+    .info-row-label {
+      font-size: 13px;
+      color: var(--text2);
+      flex-shrink: 0;
+    }
+    .info-row-value {
+      font-size: 13px;
+      font-weight: 500;
+      text-align: right;
+    }
+    .info-row-value a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+    .info-row-value a:hover { text-decoration: underline; }
+
+    /* COST TABLE */
+    .cost-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .cost-header {
+      padding: 14px 16px 10px;
+    }
+    .cost-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .cost-sub {
+      font-size: 12px;
+      color: var(--text3);
+      margin-top: 2px;
+    }
+    .cost-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 16px;
+      border-top: 1px solid var(--border);
+    }
+    .cost-row-label {
+      font-size: 13px;
+      color: var(--text2);
+    }
+    .cost-row-value {
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .cost-row.total {
+      background: var(--surface2);
+    }
+    .cost-row.total .cost-row-label {
+      color: var(--text);
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .cost-row.total .cost-row-value {
+      color: var(--gold);
+      font-size: 15px;
+    }
+
+    /* TIPS */
+    .tip {
+      background: rgba(74, 158, 221, 0.08);
+      border: 1px solid rgba(74, 158, 221, 0.2);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      margin-bottom: 10px;
+    }
+    .tip-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .tip-text {
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.4;
+    }
+    .tip.warn {
+      background: rgba(212, 168, 67, 0.08);
+      border-color: rgba(212, 168, 67, 0.25);
+    }
+    .tip.warn .tip-title { color: var(--gold); }
+
+    /* FOOTER */
+    .team-guide-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(196, 30, 58, 0.1);
+      border: 1px solid rgba(196, 30, 58, 0.4);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      margin: 16px 16px 0;
+      text-decoration: none;
+      color: var(--text);
+      gap: 10px;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .team-guide-btn:active { opacity: 0.75; }
+    .team-guide-btn-left { display: flex; align-items: center; gap: 12px; }
+    .team-guide-btn-logos { display: flex; gap: 4px; align-items: center; }
+    .team-guide-btn-logos img { width: 28px; height: 28px; object-fit: contain; }
+    .team-guide-btn-label { font-size: 14px; font-weight: 700; }
+    .team-guide-btn-sub { font-size: 12px; color: var(--text2); margin-top: 1px; }
+    .team-guide-btn-arrow { font-size: 16px; color: var(--accent2); font-weight: 700; }
+
+    .footer {
+      margin-top: 32px;
+      padding: 0 20px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text3);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">Cardinals vs. Cubs · Busch Stadium</div>
+    <div class="hero-title">St. Louis<br>July 28, 2025</div>
+    <div class="hero-subtitle">Vic · Kim · Daughter from Chicago · Dog · 2 rooms · 1 night</div>
+    <div class="hero-badges">
+      <div class="badge vip">⭐ VIP Suite Tickets</div>
+      <div class="badge">🎭 6:45 PM First Pitch</div>
+      <div class="badge">🏨 Marriott</div>
+      <div class="badge">🐾 Pet-Friendly</div>
+    </div>
+  </div>
+
+  <!-- TEAM GUIDE BUTTON -->
+  <a class="team-guide-btn" href="teams.html">
+    <div class="team-guide-btn-left">
+      <div class="team-guide-btn-logos">
+        <img src="https://a.espncdn.com/i/teamlogos/mlb/500/stl.png" alt="Cardinals">
+        <img src="https://a.espncdn.com/i/teamlogos/mlb/500/chc.png" alt="Cubs">
+      </div>
+      <div>
+        <div class="team-guide-btn-label">Cardinals &amp; Cubs Player Guide</div>
+        <div class="team-guide-btn-sub">Starters · Stats · Full roster by number</div>
+      </div>
+    </div>
+    <div class="team-guide-btn-arrow">→</div>
+  </a>
+
+  <!-- TRAVEL OVERVIEW -->
+  <div class="section">
+    <div class="section-label">Trip Overview</div>
+
+    <!-- Day 1 -->
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-name">Monday</div>
+        <div class="day-date">July 27</div>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-time">Morning</div>
+          <div class="timeline-dot blue"></div>
+          <div class="timeline-content">
+            <div class="timeline-title">Rogers → Sawmill</div>
+            <div class="timeline-detail">Drive Rogers, AR to St. Robert, MO</div>
+            <div class="timeline-note">~3.5 hrs · No rush, settle in for the night</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">Evening</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-title">Night at Sawmill</div>
+            <div class="timeline-detail">Rest up before the drive to St. Louis Tuesday morning</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 2 — Game Day -->
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-name">Tuesday — Game Day</div>
+        <div class="day-date">July 28</div>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-time">9:00a</div>
+          <div class="timeline-dot blue"></div>
+          <div class="timeline-content">
+            <div class="timeline-title">Sawmill → St. Louis</div>
+            <div class="timeline-detail">Drive St. Robert to downtown STL</div>
+            <div class="timeline-note">~2 hrs · Arrive early for check-in attempt</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">11:00a</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-title">Check In — Residence Inn Clayton</div>
+            <div class="timeline-detail">8125 Forsyth Blvd, Clayton, MO — already booked</div>
+            <div class="timeline-note">Drop bags, get dog settled</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">12:00p</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-title">Daughter Arrives from Chicago</div>
+            <div class="timeline-detail">~5 hr drive from Chicago or short flight to STL Lambert</div>
+            <div class="timeline-note">Coordinate arrival time — meet at hotel</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">5:15p</div>
+          <div class="timeline-dot green"></div>
+          <div class="timeline-content">
+            <div class="timeline-title">Elijah Pickup — Hotel to Busch Stadium</div>
+            <div class="timeline-detail">Residence Inn Clayton → Busch Stadium · ~25–35 min game day</div>
+            <div class="timeline-note">✅ Confirmed · Elijah Eromoseh · +1 (314) 896-9133</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">6:45p</div>
+          <div class="timeline-dot gold"></div>
+          <div class="timeline-content">
+            <div class="timeline-title">⚾ First Pitch — Cardinals vs. Cubs</div>
+            <div class="timeline-detail">VIP Suite · Busch Stadium · St. Louis, MO</div>
+            <div class="timeline-tag gold-tag">Suite service included</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">~10:00p</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-title">Post-Game — Elijah Back to Hotel</div>
+            <div class="timeline-detail">Elijah picks up after the game · back to Residence Inn Clayton</div>
+            <div class="timeline-note">Plan for a 3.5 hr game</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 3 -->
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-name">Wednesday</div>
+        <div class="day-date">July 29</div>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-time">Morning</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-title">Breakfast at the Residence Inn</div>
+            <div class="timeline-detail">Complimentary hot breakfast included — eat before checkout</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">Checkout</div>
+          <div class="timeline-dot blue"></div>
+          <div class="timeline-content">
+            <div class="timeline-title">Depart St. Louis</div>
+            <div class="timeline-detail">Vic: back to Rogers, AR · Daughter: back to Chicago</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOTEL -->
+  <div class="section">
+    <div class="section-label">Hotel</div>
+
+    <div class="info-card">
+      <div class="info-card-header">
+        <div>
+          <div class="info-card-title">Residence Inn St. Louis Clayton</div>
+          <div class="info-card-sub">8125 Forsyth Blvd · Clayton, MO · ✅ Already Booked</div>
+        </div>
+        <div class="info-card-badge gold-badge">Marriott ✦</div>
+      </div>
+      <hr class="info-divider">
+      <div class="info-rows">
+        <div class="info-row">
+          <div class="info-row-label">Check-in</div>
+          <div class="info-row-value">Mon July 28 · ✅ Booked</div>
+        </div>
+        <div class="info-row">
+          <div class="info-row-label">Check-out</div>
+          <div class="info-row-value">Tue July 29</div>
+        </div>
+        <div class="info-row">
+          <div class="info-row-label">Rooms</div>
+          <div class="info-row-value">2 rooms, 1 night each</div>
+        </div>
+        <div class="info-row">
+          <div class="info-row-label">Est. Rate</div>
+          <div class="info-row-value">$359/room · taxes included · ✅ Confirmed</div>
+        </div>
+        <div class="info-row">
+          <div class="info-row-label">Pet Policy</div>
+          <div class="info-row-value">🐾 Pet-friendly</div>
+        </div>
+        <div class="info-row">
+          <div class="info-row-label">Breakfast</div>
+          <div class="info-row-value">Complimentary hot breakfast included</div>
+        </div>
+        <div class="info-row">
+          <div class="info-row-label">Distance to Stadium</div>
+          <div class="info-row-value">~15 min · Elijah driving</div>
+        </div>
+      </div>
+        <div class="info-row">
+          <div class="info-row-label">Parking</div>
+          <div class="info-row-value">Free on-site</div>
+        </div>
+
+  <!-- DINING -->
+  <div class="section">
+    <div class="section-label">Dining</div>
+
+    <div class="info-card">
+      <div class="info-card-header">
+        <div>
+          <div class="info-card-title">Broadway Oyster Bar</div>
+          <div class="info-card-sub">Pre-Game Dinner · 4:30 PM · 736 S Broadway</div>
+        </div>
+        <div class="info-card-badge">4:30 PM</div>
+      </div>
+      <hr class="info-divider">
+      <div class="info-rows">
+        <div class="info-row">
+          <div class="info-row-label">Vibe</div>
+          <div class="info-row-value">Cajun seafood, live music, packed energy</div>
+        </div>
+        <div class="info-row">
+          <div class="info-row-label">From Hotel</div>
+          <div class="info-row-value">3 min walk</div>
+        </div>
+        <div class="info-row">
+          <div class="info-row-label">Reservations</div>
+          <div class="info-row-value">Call 314-621-8811 (strongly suggested)</div>
+        </div>
+        <div class="info-row">
+          <div class="info-row-label">Est. Cost</div>
+          <div class="info-row-value">~$50–$75/person + drinks</div>
+        </div>
+        <div class="info-row">
+          <div class="info-row-label">Website</div>
+          <div class="info-row-value"><a href="https://www.broadwayoysterbar.com" target="_blank">broadwayoysterbar.com</a></div>
+        </div>
+      </div>
+      <hr class="info-divider">
+      <div style="padding: 10px 16px 14px;">
+        <div class="tip" style="margin-bottom: 0;">
+          <div class="tip-title">Why here</div>
+          <div class="tip-text">This is the authentic St. Louis pre-game experience — not a chain, not a tourist trap. Cajun crawfish, oysters, live blues, three blocks from the stadium. Order early and be out by 6:00 for the walk over.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-header">
+        <div>
+          <div class="info-card-title">Suite Food Service</div>
+          <div class="info-card-sub">In-Game · Busch Stadium VIP Suite</div>
+        </div>
+        <div class="info-card-badge gold-badge">Included</div>
+      </div>
+      <hr class="info-divider">
+      <div class="info-rows">
+        <div class="info-row">
+          <div class="info-row-label">Type</div>
+          <div class="info-row-value">Catered suite service (confirm with ticket issuer)</div>
+        </div>
+        <div class="info-row">
+          <div class="info-row-label">Note</div>
+          <div class="info-row-value">Eat light at Broadway Oyster Bar — suite service is the show</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-header">
+        <div>
+          <div class="info-card-title">Post-Game — Ballpark Village</div>
+          <div class="info-card-sub">If you want to extend the night · ~10 PM</div>
+        </div>
+        <div class="info-card-badge">Optional</div>
+      </div>
+      <hr class="info-divider">
+      <div class="info-rows">
+        <div class="info-row">
+          <div class="info-row-label">Location</div>
+          <div class="info-row-value">Attached to Busch Stadium, easy walk out</div>
+        </div>
+        <div class="info-row">
+          <div class="info-row-label">Vibe</div>
+          <div class="info-row-value">Rooftop bars, Cardinals-themed, late crowd</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOGISTICS -->
+  <div class="section">
+    <div class="section-label">Logistics & Notes</div>
+
+    <div class="tip">
+      <div class="tip-title">Daughter's Arrival Logistics</div>
+      <div class="tip-text">Chicago → STL: ~5 hr drive (I-55 S) or 1 hr Southwest/AA flight into STL Lambert. Add her to the room so she can check in independently if you're out. Confirm room type — two queens preferred if she's sharing.</div>
+    </div>
+    <div class="tip">
+      <div class="tip-title">Game Day Transport — Elijah Eromoseh</div>
+      <div class="tip-text">✅ Confirmed pickup 5:15 PM from Residence Inn Clayton. Dog stays at the hotel. Post-game return to hotel after the final out.<br><br>📞 <a href="tel:+13148969133" style="color:var(--blue);text-decoration:none;">+1 (314) 896-9133</a></div>
+    </div>
+    <div class="tip">
+      <div class="tip-title">VIP Suite Access</div>
+      <div class="tip-text">Confirm suite entry details with your ticket issuer — gate, entry time, and whether credentials are mobile or physical. Suites typically allow entry 90 min before first pitch.</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Cardinals vs. Cubs · July 28, 2025 · Busch Stadium<br>
+    <span style="color: var(--text3);">Built by Billy · July 2025</span>
+  </div>
+
+</body>
+</html>

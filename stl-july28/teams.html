@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cardinals vs. Cubs — July 28</title>
+  <style>
+    :root {
+      --bg: #0f0f0f;
+      --surface: #1a1a1a;
+      --surface2: #222;
+      --border: #2e2e2e;
+      --text: #f0f0f0;
+      --text2: #a0a0a0;
+      --text3: #606060;
+      --radius: 12px;
+      --radius-sm: 8px;
+
+      --stl-red: #c41e3a;
+      --stl-navy: #0c2340;
+      --stl-gold: #fedb00;
+      --chc-blue: #0e3386;
+      --chc-red: #cc3433;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 15px;
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    /* ── TEAM SELECTOR ── */
+    #selector {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 20px 40px;
+    }
+    .sel-eyebrow {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text3);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .sel-title {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 4px;
+      text-align: center;
+    }
+    .sel-sub {
+      font-size: 13px;
+      color: var(--text2);
+      margin-bottom: 28px;
+      text-align: center;
+    }
+    .team-cards {
+      display: flex;
+      gap: 14px;
+      width: 100%;
+      max-width: 420px;
+    }
+    .team-card {
+      flex: 1;
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 12px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: border-color 0.18s, background 0.18s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .team-card:active { opacity: 0.85; }
+    .team-card.stl { border-color: var(--stl-red); }
+    .team-card.chc { border-color: var(--chc-blue); }
+    .team-logo {
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
+    }
+    .team-card-name {
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-align: center;
+    }
+    .team-card.stl .team-card-name { color: var(--stl-red); }
+    .team-card.chc .team-card-name { color: var(--chc-blue); }
+    .team-card-tap {
+      font-size: 11px;
+      color: var(--text3);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .vs-badge {
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--text3);
+      align-self: center;
+      flex-shrink: 0;
+    }
+
+    /* ── TEAM VIEW ── */
+    #team-view { display: none; }
+
+    .team-hero {
+      padding: 20px 18px 18px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .team-hero-logo {
+      width: 56px;
+      height: 56px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+    .team-hero-info { flex: 1; }
+    .team-hero-name {
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.15;
+    }
+    .team-hero-sub {
+      font-size: 12px;
+      color: var(--text2);
+      margin-top: 2px;
+    }
+    .back-btn {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text2);
+      cursor: pointer;
+      flex-shrink: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .back-btn:active { opacity: 0.7; }
+
+    /* ── SECTION ── */
+    .section {
+      padding: 0 16px;
+      margin-top: 20px;
+    }
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text3);
+      font-weight: 700;
+      margin-bottom: 10px;
+      padding: 0 2px;
+    }
+
+    /* ── PITCHER CARD ── */
+    .pitcher-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 6px;
+    }
+    .pitcher-header {
+      padding: 12px 14px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .pitcher-name { font-size: 16px; font-weight: 800; }
+    .pitcher-name a { color: var(--text); text-decoration: none; }
+    .pitcher-name a::after { content: ' ↗'; font-size: 11px; font-weight: 400; opacity: 0.5; }
+    .pitcher-name a:active { opacity: 0.7; }
+    body.stl .pitcher-name a { color: #e8637a; }
+    body.chc .pitcher-name a { color: #7aabff; }
+    .pitcher-sub { font-size: 12px; color: var(--text2); margin-top: 2px; }
+    .pitcher-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+    .pitcher-stats {
+      display: flex;
+      border-top: 1px solid var(--border);
+    }
+    .pitcher-stat {
+      flex: 1;
+      padding: 10px 0 8px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .pitcher-stat:last-child { border-right: none; }
+    .pitcher-stat-val {
+      font-size: 17px;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .pitcher-stat-lbl {
+      font-size: 10px;
+      color: var(--text3);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 3px;
+    }
+    .pitcher-note {
+      padding: 10px 14px 12px;
+      font-size: 13px;
+      color: var(--text2);
+      border-top: 1px solid var(--border);
+      line-height: 1.45;
+    }
+
+    /* ── PLAYER ROWS ── */
+    .player-list {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .player-row {
+      display: flex;
+      align-items: flex-start;
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--border);
+      gap: 10px;
+    }
+    .player-row:last-child { border-bottom: none; }
+    .player-num {
+      font-size: 12px;
+      font-weight: 800;
+      min-width: 28px;
+      padding-top: 1px;
+      color: var(--text3);
+    }
+    .player-main { flex: 1; }
+    .player-name { font-size: 14px; font-weight: 700; color: var(--text); text-decoration: none; }
+    .player-name:active { opacity: 0.7; }
+    .player-name::after { content: ' ↗'; font-size: 11px; font-weight: 400; opacity: 0.5; }
+    .player-pos {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-left: 6px;
+      color: var(--text3);
+    }
+    .player-stats-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 3px;
+    }
+    .pstat {
+      font-size: 12px;
+      color: var(--text2);
+    }
+    .pstat span { font-weight: 700; color: var(--text); }
+    .player-note {
+      font-size: 12px;
+      color: var(--text2);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    /* ── FULL ROSTER ── */
+    .roster-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 13px 16px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text2);
+      -webkit-tap-highlight-color: transparent;
+    }
+    .roster-toggle:active { opacity: 0.7; }
+    .roster-toggle .arrow { transition: transform 0.2s; font-size: 11px; }
+    .roster-toggle.open .arrow { transform: rotate(180deg); }
+    .roster-body {
+      display: none;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 var(--radius) var(--radius);
+      overflow: hidden;
+    }
+    .roster-body.open { display: block; }
+    .roster-group-label {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text3);
+      font-weight: 700;
+      padding: 10px 14px 4px;
+    }
+    .roster-row {
+      display: flex;
+      align-items: center;
+      padding: 7px 14px;
+      border-top: 1px solid var(--border);
+      gap: 10px;
+    }
+    .roster-num {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--text3);
+      min-width: 28px;
+    }
+    .roster-name { font-size: 13px; font-weight: 600; flex: 1; }
+    .roster-pos {
+      font-size: 11px;
+      color: var(--text3);
+      font-weight: 700;
+      text-transform: uppercase;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 7px;
+    }
+
+    .pb-safe { height: 40px; }
+
+    /* ── COLOR THEMING ── */
+    body.stl .team-hero { background: linear-gradient(135deg, #1a0005 0%, #0f0f0f 100%); }
+    body.stl .pitcher-badge { background: rgba(196,30,58,0.15); border: 1px solid rgba(196,30,58,0.4); color: var(--stl-red); }
+    body.stl .pitcher-stat-val { color: var(--stl-red); }
+    body.stl .player-num { color: var(--stl-red); }
+    body.stl .player-pos { color: var(--stl-red); }
+    body.stl .player-name { color: #e8637a; }
+    body.stl .roster-num { color: var(--stl-red); }
+
+    body.chc .team-hero { background: linear-gradient(135deg, #000e28 0%, #0f0f0f 100%); }
+    body.chc .pitcher-badge { background: rgba(14,51,134,0.2); border: 1px solid rgba(14,51,134,0.5); color: #5b8ce8; }
+    body.chc .pitcher-stat-val { color: #5b8ce8; }
+    body.chc .player-num { color: #5b8ce8; }
+    body.chc .player-pos { color: #5b8ce8; }
+    body.chc .player-name { color: #7aabff; }
+    body.chc .roster-num { color: #5b8ce8; }
+  </style>
+</head>
+<body>
+
+  <!-- ── SELECTOR ── -->
+  <div id="selector">
+    <div class="sel-eyebrow">July 28, 2026 · Busch Stadium</div>
+    <div class="sel-title">Cardinals vs. Cubs</div>
+    <div class="sel-sub">Select a team to view their roster &amp; stats</div>
+    <div class="team-cards">
+      <div class="team-card stl" onclick="showTeam('stl')">
+        <img class="team-logo" src="https://a.espncdn.com/i/teamlogos/mlb/500/stl.png" alt="Cardinals">
+        <div class="team-card-name">St. Louis<br>Cardinals</div>
+        <div class="team-card-tap">↑ Tap</div>
+      </div>
+      <div class="vs-badge">VS</div>
+      <div class="team-card chc" onclick="showTeam('chc')">
+        <img class="team-logo" src="https://a.espncdn.com/i/teamlogos/mlb/500/chc.png" alt="Cubs">
+        <div class="team-card-name">Chicago<br>Cubs</div>
+        <div class="team-card-tap">↑ Tap</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TEAM VIEW ── -->
+  <div id="team-view">
+    <div class="team-hero">
+      <img id="tv-logo" class="team-hero-logo" src="" alt="">
+      <div class="team-hero-info">
+        <div id="tv-name" class="team-hero-name"></div>
+        <div id="tv-sub" class="team-hero-sub"></div>
+      </div>
+      <div class="back-btn" onclick="showSelector()">← Teams</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Starting Pitcher — July 28</div>
+      <div class="pitcher-card">
+        <div class="pitcher-header">
+          <div>
+            <div id="p-name" class="pitcher-name"></div>
+            <div id="p-sub" class="pitcher-sub"></div>
+          </div>
+          <div id="p-badge" class="pitcher-badge">SP</div>
+        </div>
+        <div class="pitcher-stats">
+          <div class="pitcher-stat">
+            <div id="p-wl" class="pitcher-stat-val"></div>
+            <div class="pitcher-stat-lbl">W-L</div>
+          </div>
+          <div class="pitcher-stat">
+            <div id="p-era" class="pitcher-stat-val"></div>
+            <div class="pitcher-stat-lbl">ERA</div>
+          </div>
+          <div class="pitcher-stat">
+            <div id="p-whip" class="pitcher-stat-val"></div>
+            <div class="pitcher-stat-lbl">WHIP</div>
+          </div>
+          <div class="pitcher-stat">
+            <div id="p-k" class="pitcher-stat-val"></div>
+            <div class="pitcher-stat-lbl">K</div>
+          </div>
+        </div>
+        <div id="p-note" class="pitcher-note"></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Starters</div>
+      <div id="starters-list" class="player-list"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Full Roster</div>
+      <div class="roster-toggle" id="roster-toggle" onclick="toggleRoster()">
+        <span>View all players by number</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="roster-body" id="roster-body"></div>
+    </div>
+
+    <div class="pb-safe"></div>
+  </div>
+
+  <script>
+    const DATA = {
+      stl: {
+        name: 'St. Louis Cardinals',
+        sub: '52-51 · NL Central · July 28, 2026',
+        logo: 'https://a.espncdn.com/i/teamlogos/mlb/500/stl.png',
+        pitcher: {
+          name: '#36 Michael McGreevy', role: 'Starting Pitcher',
+          url: 'https://www.mlb.com/player/michael-mcgreevy-680925',
+          wl: '4-8', era: '3.07', whip: '1.13', k: '74',
+          note: 'Right-hander with an excellent ERA despite the losing record — he\'s been pitching well with weak run support. Works quickly, keeps the ball on the ground. Not a strikeout pitcher; contact management is his game.'
+        },
+        starters: [
+          { num:'26', name:'JJ Wetherholt',  pos:'2B', avg:'.257', hr:'15', rbi:'40', ops:'.755', url:'https://www.mlb.com/player/jj-wetherholt-802139', note:'The hot 2026 rookie everyone\'s buzzing about. Leadoff man. Tons of energy — crowd reacts to his at-bats.' },
+          { num:'41', name:'Alec Burleson',  pos:'1B', avg:'.281', hr:'15', rbi:'69', ops:'.806', url:'https://www.mlb.com/player/alec-burleson-686753', note:'Steady, reliable RBI bat. Not flashy, consistently productive. One of the team\'s most dependable hitters.' },
+          { num:'48', name:'Iván Herrera',   pos:'DH', avg:'.239', hr:'11', rbi:'41', ops:'.735', url:'https://www.mlb.com/player/ivan-herrera-671056', note:'Venezuelan fan favorite. Had a monster 2025 and earned the everyday DH spot. Patient hitter with real pop.' },
+          { num:'18', name:'Jordan Walker',  pos:'RF', avg:'.288', hr:'22', rbi:'77', ops:'.863', url:'https://www.mlb.com/player/jordan-walker-691023', note:'Best hitter on the team. 22-year-old phenom with a long, explosive swing. Most likely to hit a home run — watch every at-bat.' },
+          { num:'21', name:'Lars Nootbaar',  pos:'LF', avg:'.246', hr:'3',  rbi:'15', ops:'.721', url:'https://www.mlb.com/player/lars-nootbaar-663457', note:'Cult hero. Beloved for grit and OBP. Represented Japan in the WBC. Gets some of the loudest crowd reactions at Busch.' },
+          { num:'0',  name:'Masyn Winn',     pos:'SS', avg:'.235', hr:'4',  rbi:'42', ops:'.629', url:'https://www.mlb.com/player/masyn-winn-691026', note:'Gold Glove-caliber shortstop. Bat is down this year but his range and arm are a highlight reel. Watch him in the field.' },
+          { num:'27', name:'Nathan Church',  pos:'CF', avg:'.228', hr:'8',  rbi:'29', ops:'.634', url:'https://www.mlb.com/player/nathan-church-687489', note:'Young CF still developing at the MLB level. Athletic, fast, glove-first right now.' },
+          { num:'33', name:'Blaze Jordan',   pos:'3B', avg:'.245', hr:'1',  rbi:'20', ops:'.624', url:'https://www.mlb.com/player/blaze-jordan-687223', note:'21-year-old prospect with one of the best names in baseball. Mississippi kid who went viral in HS for raw power. Still developing.' },
+          { num:'8',  name:'Jimmy Crooks',   pos:'C',  avg:'.184', hr:'3',  rbi:'9',  ops:'.621', url:'https://www.mlb.com/player/jimmy-crooks-691036', note:'Defense-first catcher. Shares time with Pedro Pagés (#43). Not the bat you\'re watching for.' },
+        ],
+        roster: [
+          { group: 'Pitchers', players: [
+            { num:'3',  name:'Dustin May',         pos:'SP' },
+            { num:'32', name:'Matthew Liberatore', pos:'SP' },
+            { num:'36', name:'Michael McGreevy',   pos:'SP ★' },
+            { num:'40', name:'Hunter Dobbins',     pos:'SP' },
+            { num:'53', name:'Andre Pallante',     pos:'SP' },
+            { num:'62', name:'Kyle Leahy',         pos:'SP' },
+            { num:'44', name:'Gordon Graceffo',    pos:'RP' },
+            { num:'47', name:'Justin Bruihl',      pos:'RP' },
+            { num:'49', name:'Matt Svanson',       pos:'RP' },
+            { num:'55', name:'Ryne Stanek',        pos:'RP' },
+            { num:'61', name:'Riley O\'Brien',     pos:'RP' },
+            { num:'65', name:'George Soriano',     pos:'RP' },
+            { num:'72', name:'Luis Gastelum',      pos:'RP' },
+          ]},
+          { group: 'Catchers', players: [
+            { num:'8',  name:'Jimmy Crooks', pos:'C' },
+            { num:'43', name:'Pedro Pagés',  pos:'C' },
+          ]},
+          { group: 'Infielders', players: [
+            { num:'0',  name:'Masyn Winn',      pos:'SS' },
+            { num:'26', name:'JJ Wetherholt',   pos:'2B' },
+            { num:'33', name:'Blaze Jordan',    pos:'3B' },
+            { num:'41', name:'Alec Burleson',   pos:'1B' },
+          ]},
+          { group: 'Outfielders / DH', players: [
+            { num:'15', name:'José Fermín',        pos:'OF' },
+            { num:'18', name:'Jordan Walker',      pos:'RF' },
+            { num:'21', name:'Lars Nootbaar',      pos:'LF' },
+            { num:'27', name:'Nathan Church',      pos:'CF' },
+            { num:'38', name:'Nelson Velázquez',   pos:'OF' },
+            { num:'39', name:'Bryan Torres',       pos:'OF' },
+            { num:'48', name:'Iván Herrera',       pos:'DH/C' },
+          ]},
+        ]
+      },
+
+      chc: {
+        name: 'Chicago Cubs',
+        sub: '58-45 · NL Central · July 28, 2026',
+        logo: 'https://a.espncdn.com/i/teamlogos/mlb/500/chc.png',
+        pitcher: {
+          name: '#53 Colin Rea', role: 'Starting Pitcher',
+          url: 'https://www.mlb.com/player/colin-rea-592663',
+          wl: '7-7', era: '4.85', whip: '1.42', k: '81',
+          note: 'Veteran right-hander in his second Cubs stint. Has the strikeouts but gives up runs — a .500 record reflects it. If the Cubs offense gets going early, expect a short leash.'
+        },
+        starters: [
+          { num:'4',  name:'Pete Crow-Armstrong', pos:'CF', avg:'.285', hr:'22', rbi:'56', ops:'.912', url:'https://www.mlb.com/player/pete-crow-armstrong-679529', note:'The breakout star of 2026 — one of the best young CFs in baseball. Gold Glove defender AND a legit power bat. Cubs fans love him.' },
+          { num:'27', name:'Seiya Suzuki',         pos:'RF', avg:'.267', hr:'17', rbi:'54', ops:'.828', url:'https://www.mlb.com/player/seiya-suzuki-673548', note:'Japanese star signed to a big deal. Consistent, disciplined hitter with power. Very popular with Cubs fans.' },
+          { num:'29', name:'Michael Busch',        pos:'1B', avg:'.241', hr:'13', rbi:'54', ops:'.762', url:'https://www.mlb.com/player/michael-busch-683737', note:'Solid first baseman and a key middle-of-the-order bat for the Cubs. Former Dodger prospect.' },
+          { num:'3',  name:'Alex Bregman',         pos:'3B', avg:'.237', hr:'10', rbi:'44', ops:'.688', url:'https://www.mlb.com/player/alex-bregman-608324', note:'Former Astros star and World Series champion. Big-game reputation. Cubs signed him this offseason as a veteran anchor.' },
+          { num:'8',  name:'Ian Happ',             pos:'LF', avg:'.223', hr:'18', rbi:'45', ops:'.766', url:'https://www.mlb.com/player/ian-happ-669196', note:'Chicago kid — born near the city, played at U of Cincinnati. Fan favorite for his blue-collar style. Power bat with big swing.' },
+          { num:'2',  name:'Nico Hoerner',         pos:'2B', avg:'.244', hr:'4',  rbi:'43', ops:'.646', url:'https://www.mlb.com/player/nico-hoerner-669357', note:'Cubs captain. Elite defender at 2B. The OBP, baserunning, and glove make him indispensable even when the bat is quiet.' },
+          { num:'75', name:'Pedro Ramírez',        pos:'DH', avg:'.284', hr:'1',  rbi:'11', ops:'.757', url:'https://www.mlb.com/player/pedro-ramirez-686613', note:'Young Venezuelan prospect getting regular at-bats at DH. Still developing but shows good contact skills.' },
+          { num:'15', name:'Carson Kelly',         pos:'C',  avg:'.262', hr:'6',  rbi:'35', ops:'.734', url:'https://www.mlb.com/player/carson-kelly-608348', note:'Veteran catcher, solid defensive presence. Quietly one of the better offensive catchers in the NL this year.' },
+          { num:'7',  name:'Dansby Swanson',       pos:'SS', avg:'.213', hr:'16', rbi:'59', ops:'.701', url:'https://www.mlb.com/player/dansby-swanson-663624', note:'Former Braves SS who won a World Series in Atlanta. Big contract, streaky bat — but 16 HRs and 59 RBI show he can hurt you.' },
+        ],
+        roster: [
+          { group: 'Pitchers', players: [
+            { num:'18', name:'Shota Imanaga',     pos:'SP' },
+            { num:'19', name:'David Peterson',    pos:'SP' },
+            { num:'35', name:'Justin Steele',     pos:'SP' },
+            { num:'38', name:'Aaron Civale',      pos:'SP' },
+            { num:'50', name:'Jameson Taillon',   pos:'SP' },
+            { num:'53', name:'Colin Rea',         pos:'SP ★' },
+            { num:'16', name:'Matthew Boyd',      pos:'RP' },
+            { num:'22', name:'Cade Horton',       pos:'RP' },
+            { num:'24', name:'Caleb Thielbar',    pos:'RP' },
+            { num:'30', name:'Edward Cabrera',    pos:'RP' },
+            { num:'32', name:'Ben Brown',         pos:'RP' },
+            { num:'33', name:'Ryan Rolison',      pos:'RP' },
+            { num:'36', name:'Jordan Wicks',      pos:'RP' },
+            { num:'37', name:'Porter Hodge',      pos:'RP' },
+            { num:'39', name:'Ethan Roberts',     pos:'RP' },
+            { num:'41', name:'Hoby Milner',       pos:'RP' },
+            { num:'43', name:'Luke Little',       pos:'RP' },
+            { num:'45', name:'Hunter Harvey',     pos:'RP' },
+            { num:'46', name:'Gavin Hollowell',   pos:'RP' },
+            { num:'48', name:'Daniel Palencia',   pos:'RP' },
+            { num:'49', name:'Trent Thornton',    pos:'RP' },
+            { num:'51', name:'Riley Martin',      pos:'RP' },
+            { num:'64', name:'Tyler Ferguson',    pos:'RP' },
+            { num:'71', name:'Jacob Webb',        pos:'RP' },
+            { num:'72', name:'Javier Assad',      pos:'RP' },
+            { num:'88', name:'Phil Maton',        pos:'RP' },
+          ]},
+          { group: 'Catchers', players: [
+            { num:'9',  name:'Miguel Amaya',  pos:'C' },
+            { num:'15', name:'Carson Kelly',  pos:'C' },
+          ]},
+          { group: 'Infielders', players: [
+            { num:'2',  name:'Nico Hoerner',   pos:'2B' },
+            { num:'3',  name:'Alex Bregman',   pos:'3B' },
+            { num:'5',  name:'James Triantos', pos:'INF' },
+            { num:'6',  name:'Matt Shaw',      pos:'INF' },
+            { num:'7',  name:'Dansby Swanson', pos:'SS' },
+            { num:'29', name:'Michael Busch',  pos:'1B' },
+            { num:'75', name:'Pedro Ramírez',  pos:'2B/DH' },
+          ]},
+          { group: 'Outfielders / DH', players: [
+            { num:'1',  name:'Justin Dean',          pos:'OF' },
+            { num:'4',  name:'Pete Crow-Armstrong',  pos:'CF' },
+            { num:'8',  name:'Ian Happ',             pos:'LF' },
+            { num:'20', name:'Michael Conforto',     pos:'OF/DH' },
+            { num:'27', name:'Seiya Suzuki',         pos:'RF' },
+          ]},
+        ]
+      }
+    };
+
+    let rosterOpen = false;
+
+    function showTeam(team) {
+      const d = DATA[team];
+      document.getElementById('selector').style.display = 'none';
+      document.getElementById('team-view').style.display = 'block';
+      document.body.className = team;
+
+      document.getElementById('tv-logo').src = d.logo;
+      document.getElementById('tv-logo').alt = d.name;
+      document.getElementById('tv-name').textContent = d.name;
+      document.getElementById('tv-sub').textContent = d.sub;
+
+      const p = d.pitcher;
+      document.getElementById('p-name').innerHTML = p.url ? `<a href="${p.url}" target="_blank">${p.name}</a>` : p.name;
+      document.getElementById('p-sub').textContent = p.role;
+      document.getElementById('p-wl').textContent = p.wl;
+      document.getElementById('p-era').textContent = p.era;
+      document.getElementById('p-whip').textContent = p.whip;
+      document.getElementById('p-k').textContent = p.k;
+      document.getElementById('p-note').textContent = p.note;
+
+      const sl = document.getElementById('starters-list');
+      sl.innerHTML = d.starters.map(s => `
+        <div class="player-row">
+          <div class="player-num">#${s.num}</div>
+          <div class="player-main">
+            <div>
+              <a class="player-name" href="${s.url}" target="_blank">${s.name}</a>
+              <span class="player-pos">${s.pos}</span>
+            </div>
+            <div class="player-stats-row">
+              <div class="pstat">AVG <span>${s.avg}</span></div>
+              <div class="pstat">HR <span>${s.hr}</span></div>
+              <div class="pstat">RBI <span>${s.rbi}</span></div>
+              <div class="pstat">OPS <span>${s.ops}</span></div>
+            </div>
+            <div class="player-note">${s.note}</div>
+          </div>
+        </div>
+      `).join('');
+
+      const rb = document.getElementById('roster-body');
+      rb.innerHTML = d.roster.map(group => `
+        <div class="roster-group-label">${group.group}</div>
+        ${group.players.map(p => `
+          <div class="roster-row">
+            <div class="roster-num">#${p.num}</div>
+            <div class="roster-name">${p.name}</div>
+            <div class="roster-pos">${p.pos}</div>
+          </div>
+        `).join('')}
+      `).join('');
+
+      rosterOpen = false;
+      document.getElementById('roster-toggle').classList.remove('open');
+      document.getElementById('roster-body').classList.remove('open');
+      window.scrollTo(0, 0);
+    }
+
+    function showSelector() {
+      document.getElementById('team-view').style.display = 'none';
+      document.getElementById('selector').style.display = 'flex';
+      document.body.className = '';
+      window.scrollTo(0, 0);
+    }
+
+    function toggleRoster() {
+      rosterOpen = !rosterOpen;
+      document.getElementById('roster-toggle').classList.toggle('open', rosterOpen);
+      document.getElementById('roster-body').classList.toggle('open', rosterOpen);
+    }
+  </script>
+</body>
+</html>
