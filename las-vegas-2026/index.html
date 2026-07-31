@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Las Vegas — Sept 30-Oct 4, 2026</title>
+  <style>
+    :root {
+      --bg: #0f0f13; --surface: #1b1a24; --surface2: #242233;
+      --border: #343148; --text: #f1eff8; --muted: #aaa3bd;
+      --accent: #d4a843; --pink: #e66aa5; --radius: 14px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 15px; line-height: 1.5; max-width: 560px;
+      margin: 0 auto; padding: 28px 18px 56px;
+    }
+    a { color: var(--accent); }
+    .back { color: var(--muted); text-decoration: none; font-size: 12px; font-weight: 700; }
+    .hero { padding: 22px 0 24px; border-bottom: 1px solid var(--border); margin-bottom: 22px; }
+    .eyebrow { color: var(--pink); text-transform: uppercase; letter-spacing: 2px; font-size: 10px; font-weight: 800; margin-bottom: 6px; }
+    h1 { font-size: clamp(26px, 8vw, 34px); line-height: 1.08; margin-bottom: 8px; }
+    .sub { color: var(--muted); font-size: 14px; }
+    .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .badge { border: 1px solid var(--border); background: var(--surface); border-radius: 999px; padding: 5px 11px; color: var(--muted); font-size: 12px; }
+    .section { margin-top: 22px; }
+    .section-label { color: var(--muted); text-transform: uppercase; letter-spacing: 2px; font-size: 10px; font-weight: 800; margin-bottom: 10px; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 15px; margin-bottom: 10px; }
+    .row { display: flex; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--border); padding: 9px 0; }
+    .row:last-child { border-bottom: 0; }
+    .row span:first-child { color: var(--muted); }
+    .row span:last-child { text-align: right; font-weight: 700; }
+    .day { display: grid; grid-template-columns: 82px 1fr; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .day:last-child { border-bottom: 0; }
+    .date { color: var(--accent); font-weight: 800; font-size: 12px; }
+    .plan { color: var(--text); }
+    .note { color: var(--muted); font-size: 13px; margin-top: 6px; }
+  </style>
+</head>
+<body>
+  <a class="back" href="../index.html">← Itineraries</a>
+
+  <header class="hero">
+    <div class="eyebrow">Las Vegas, Nevada</div>
+    <h1>Las Vegas Couples Trip</h1>
+    <div class="sub">Sept 30-Oct 4, 2026 · Henderson base · ~5 couples</div>
+    <div class="badges">
+      <div class="badge">Planning</div>
+      <div class="badge">4 nights</div>
+      <div class="badge">Group logistics</div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="section-label">Overview</div>
+    <div class="card">
+      <div class="row"><span>Dates</span><span>Wed Sep 30-Sun Oct 4</span></div>
+      <div class="row"><span>Travelers</span><span>~5 couples / 10 people</span></div>
+      <div class="row"><span>Lodging</span><span>Henderson house</span></div>
+      <div class="row"><span>Flights</span><span>AA First via DFW</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Itinerary shape</div>
+    <div class="card">
+      <div class="day"><div class="date">Sep 30</div><div><div class="plan">Arrival day</div><div class="note">Fly XNA to LAS; settle into the Henderson base; low-friction dinner.</div></div></div>
+      <div class="day"><div class="date">Oct 1</div><div><div class="plan">Full day</div><div class="note">Trip vibe still open: pool, spa, golf, Red Rock, or Strip night.</div></div></div>
+      <div class="day"><div class="date">Oct 2</div><div><div class="plan">Friday prime night</div><div class="note">Large-party dinner and transportation are the scarce items.</div></div></div>
+      <div class="day"><div class="date">Oct 3</div><div><div class="plan">Saturday peak night</div><div class="note">Book any marquee dinner/show well ahead for a 10-person group.</div></div></div>
+      <div class="day"><div class="date">Oct 4</div><div><div class="plan">Departure day</div><div class="note">Return LAS to XNA; avoid overly early departures if possible.</div></div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Reservations to watch</div>
+    <div class="card">
+      <div class="day"><div class="date">Dining</div><div><div class="plan">Friday/Saturday 10-top reservations</div><div class="note">This is the main constraint; book before smaller details.</div></div></div>
+      <div class="day"><div class="date">Transport</div><div><div class="plan">Two daytime SUVs + Sprinter for Strip nights</div><div class="note">Best friction reducer for a Henderson base and 10-person group.</div></div></div>
+      <div class="day"><div class="date">Shows</div><div><div class="plan">Decide Sphere/residency/none</div><div class="note">A block of 10 seats needs earlier action than a couple's trip.</div></div></div>
+    </div>
+  </section>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ireland Pilgrimage — Oct 2026</title>
+  <style>
+    :root {
+      --bg: #0f1117; --surface: #1a1d27; --surface2: #22263a;
+      --border: #2e3350; --text: #e8eaf0; --muted: #8a91ad;
+      --accent: #3ecf8e; --gold: #c9973a; --radius: 14px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 15px; line-height: 1.5; max-width: 560px;
+      margin: 0 auto; padding: 28px 18px 56px;
+    }
+    a { color: var(--accent); }
+    .back { color: var(--muted); text-decoration: none; font-size: 12px; font-weight: 700; }
+    .hero { padding: 22px 0 24px; border-bottom: 1px solid var(--border); margin-bottom: 22px; }
+    .eyebrow { color: var(--gold); text-transform: uppercase; letter-spacing: 2px; font-size: 10px; font-weight: 800; margin-bottom: 6px; }
+    h1 { font-size: clamp(25px, 7vw, 32px); line-height: 1.1; margin-bottom: 8px; }
+    .sub { color: var(--muted); font-size: 14px; }
+    .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .badge { border: 1px solid var(--border); background: var(--surface); border-radius: 999px; padding: 5px 11px; color: var(--muted); font-size: 12px; }
+    .section { margin-top: 22px; }
+    .section-label { color: var(--muted); text-transform: uppercase; letter-spacing: 2px; font-size: 10px; font-weight: 800; margin-bottom: 10px; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 15px; margin-bottom: 10px; }
+    .row { display: flex; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--border); padding: 9px 0; }
+    .row:last-child { border-bottom: 0; }
+    .row span:first-child { color: var(--muted); }
+    .row span:last-child { text-align: right; font-weight: 700; }
+    .day { display: grid; grid-template-columns: 86px 1fr; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .day:last-child { border-bottom: 0; }
+    .date { color: var(--gold); font-weight: 800; font-size: 12px; }
+    .plan { color: var(--text); }
+    .note { color: var(--muted); font-size: 13px; margin-top: 6px; }
+  </style>
+</head>
+<body>
+  <a class="back" href="../index.html">← Itineraries</a>
+
+  <header class="hero">
+    <div class="eyebrow">Dublin, Ireland</div>
+    <h1>Ireland Pilgrimage 2026</h1>
+    <div class="sub">Vic + spouse · Mercy Formation · Dublin-only planning view</div>
+    <div class="badges">
+      <div class="badge">Planning</div>
+      <div class="badge">October 2026</div>
+      <div class="badge">Dublin base</div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="section-label">Overview</div>
+    <div class="card">
+      <div class="row"><span>Purpose</span><span>Mercy Formation pilgrimage</span></div>
+      <div class="row"><span>Destination</span><span>Dublin, Ireland</span></div>
+      <div class="row"><span>Primary hotel</span><span>The Merrion</span></div>
+      <div class="row"><span>Flight plan</span><span>American via CLT</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Itinerary shape</div>
+    <div class="card">
+      <div class="day"><div class="date">Oct 9–10</div><div><div class="plan">Travel to Dublin</div><div class="note">Overnight eastbound flight; arrive Saturday morning.</div></div></div>
+      <div class="day"><div class="date">Oct 10–11</div><div><div class="plan">Arrival weekend</div><div class="note">Settle in, recover, and keep logistics light.</div></div></div>
+      <div class="day"><div class="date">Oct 12–16</div><div><div class="plan">Mercy Formation program</div><div class="note">Group schedule governs the weekdays.</div></div></div>
+      <div class="day"><div class="date">Oct 17</div><div><div class="plan">Return to XNA</div><div class="note">Dublin US preclearance; allow a full airport buffer.</div></div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Reservations to watch</div>
+    <div class="card">
+      <div class="day"><div class="date">Dining</div><div><div class="plan">Book the top Dublin dinners early</div><div class="note">Sunday/Monday closures make the good windows scarce.</div></div></div>
+      <div class="day"><div class="date">Hotel</div><div><div class="plan">Confirm early check-in strategy</div><div class="note">Arrival is well before standard check-in.</div></div></div>
+      <div class="day"><div class="date">Return</div><div><div class="plan">Protect the CLT connection</div><div class="note">Flag timing before ticketing if a larger buffer is preferred.</div></div></div>
+    </div>
+  </section>
+</body>
+</html>
