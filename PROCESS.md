@@ -1,12 +1,12 @@
 # Itinerary Workflow
 
-This repo is the public-facing itinerary layer. Use it for polished, share-safe HTML pages and stable links. Keep private trip data in LifeOS/Obsidian.
+This repo is the public-facing itinerary layer. Use it for polished, share-safe HTML pages and stable links. Keep private trip data in LifeOS/Obsidian. Even "unlisted" pages in this repo are public-by-link.
 
 ## Canonical surfaces
 
 | Surface | File/path | Purpose |
 |---|---|---|
-| Internal itinerary log | `index.html` | Vic-facing click-through list of active, planning, and archived trips |
+| Unlisted itinerary index | `index.html` | Vic-facing click-through list of active, planning, and archived trips; still public-by-link |
 | Public trips page | `menu.html` | Shareable list of only the trips that are safe for others to see |
 | Current trip alias target | `next/index.html` | Stable backend route for `bit.ly/vic-next`; rotate this file, not Bitly |
 | Trip HTML page | `<trip-slug>/index.html` | Mobile-first trip guide or planning page |
