@@ -155,3 +155,13 @@ Hosted pages are for general guidance and showing off the experience:
 - Specific recommendations, not generic travel filler
 - Costs surfaced at a useful level, but not private booking detail
 - No secrets, no tokens, no private confirmation artifacts
+
+## Weather in day headers
+
+When a trip is inside the reliable forecast window, put the current daily forecast in each day header using the compact pill format:
+
+```text
+☁️ 78°/65° 30%
+```
+
+Use high/low temperature plus rain chance. Keep it short enough for mobile. If the trip is too far out or weather is unavailable, show `Forecast pending` rather than guessing.
