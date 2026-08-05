@@ -165,3 +165,7 @@ When a trip is inside the reliable forecast window, put the current daily foreca
 ```
 
 Use high/low temperature plus rain chance. Keep it short enough for mobile. If the trip is too far out or weather is unavailable, show `Forecast pending` rather than guessing.
+
+## Printable itinerary pages
+
+Hosted trip pages should support printing from the same URL. Prefer a small `Print itinerary` button near the hero and an `@media print` stylesheet over creating a separate print-only page. The print view should use white background, dark text, simplified borders, hidden decorative/footer clutter, and avoid page breaks inside day cards.

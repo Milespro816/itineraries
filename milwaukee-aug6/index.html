@@ -42,6 +42,9 @@
     .hero-badges { display: flex; gap: 8px; flex-wrap: wrap; }
     .badge { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 4px 12px; font-size: 12px; color: var(--text2); }
     .badge.gold { background: rgba(212,168,67,0.12); border-color: var(--gold); color: var(--gold); font-weight: 600; }
+    .print-action { margin-top: 16px; }
+    .print-button { appearance: none; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); color: var(--text); border-radius: 999px; padding: 8px 14px; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
+    .print-button:active { opacity: 0.75; }
 
     .section { padding: 0 16px; margin-top: 20px; }
     .section-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text3); font-weight: 600; margin-bottom: 10px; padding: 0 4px; }
@@ -112,6 +115,78 @@
     .tip.warn .tip-title { color: var(--gold); }
 
     .footer { margin-top: 32px; padding: 0 20px; text-align: center; font-size: 12px; color: var(--text3); }
+
+    @media print {
+      :root {
+        --bg: #ffffff;
+        --surface: #ffffff;
+        --surface2: #f3f4f6;
+        --border: #d0d5dd;
+        --text: #111827;
+        --text2: #374151;
+        --text3: #6b7280;
+        --gold: #7a4f00;
+        --blue: #184f80;
+        --green: #176c35;
+      }
+      @page { margin: 0.45in; }
+      body {
+        background: #ffffff;
+        color: #111827;
+        max-width: none;
+        padding: 0;
+        font-size: 10.5pt;
+        line-height: 1.35;
+      }
+      .hero {
+        background: #ffffff;
+        border-bottom: 2px solid #111827;
+        padding: 0 0 12px;
+        margin-bottom: 14px;
+      }
+      .hero-eyebrow { color: #374151; }
+      .hero-title { font-size: 22pt; }
+      .hero-subtitle { color: #374151; margin-bottom: 8px; }
+      .hero-badges { gap: 5px; }
+      .badge, .day-party, .weather-pill, .info-card-badge, .timeline-tag {
+        background: #ffffff !important;
+        border-color: #9ca3af !important;
+        color: #111827 !important;
+      }
+      .print-action, .footer { display: none !important; }
+      .section {
+        padding: 0;
+        margin-top: 14px;
+        break-inside: avoid;
+      }
+      .section-label {
+        color: #111827;
+        border-bottom: 1px solid #d0d5dd;
+        padding: 0 0 3px;
+        margin-bottom: 6px;
+      }
+      .day-card, .flight-card, .info-card, .tip {
+        border-color: #d0d5dd;
+        box-shadow: none;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      .day-header, .info-card-header {
+        background: #f3f4f6;
+        border-color: #d0d5dd;
+      }
+      .timeline { padding: 4px 0; }
+      .timeline-item { padding: 6px 12px; gap: 10px; }
+      .timeline-item::after { display: none; }
+      .timeline-dot { display: none; }
+      .timeline-time { min-width: 48px; color: #374151; }
+      .timeline-detail, .timeline-note, .tip-text, .info-card-sub { color: #374151; }
+      .open-block {
+        background: #ffffff;
+        border-color: #d0d5dd;
+      }
+      a { color: #111827; text-decoration: underline; }
+    }
   </style>
 </head>
 <body>
@@ -124,6 +199,9 @@
       <div class="badge gold">✦ Residence Inn Brookfield</div>
       <div class="badge">✈ American Airlines</div>
       <div class="badge">🌊 Lake Michigan</div>
+    </div>
+    <div class="print-action">
+      <button class="print-button" type="button" onclick="window.print()">Print itinerary</button>
     </div>
   </div>
 
