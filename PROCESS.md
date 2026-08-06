@@ -135,11 +135,12 @@ Deletion is a separate action. Only delete a hosted trip folder when Vic explici
 
 ## Link conventions
 
+Only create Bitly shortcuts for shareable or rotating public surfaces. The unlisted internal itinerary index does not need a vanity link; bookmark the raw GitHub Pages URL if needed.
+
 Recommended Bitly targets:
 
 | Bitly | Target |
 |---|---|
-| `bit.ly/vic-itin` | `https://milespro816.github.io/itineraries/` |
 | `bit.ly/vic-trips` | `https://milespro816.github.io/itineraries/menu.html` |
 | `bit.ly/vic-next` | `https://milespro816.github.io/itineraries/next/` |
 
