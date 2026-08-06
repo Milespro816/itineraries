@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chicago BTS — Soldier Field</title>
+  <style>
+    :root {
+      --bg: #0f0f0f;
+      --surface: #1a1a1a;
+      --surface2: #222222;
+      --border: #2e2e2e;
+      --purple: #9b7cff;
+      --gold: #d4a843;
+      --green: #4caf6a;
+      --blue: #4a9edd;
+      --text: #f0f0f0;
+      --text2: #a0a0a0;
+      --text3: #606060;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 15px;
+      line-height: 1.5;
+      padding: 0 0 60px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .hero {
+      background: linear-gradient(160deg, #17092c 0%, #24104a 48%, #0f0f0f 100%);
+      padding: 28px 20px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-eyebrow { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--purple); font-weight: 700; margin-bottom: 6px; }
+    .hero-title { font-size: clamp(24px, 7vw, 28px); font-weight: 800; line-height: 1.15; margin-bottom: 4px; }
+    .hero-subtitle { font-size: 14px; color: var(--text2); margin-bottom: 16px; }
+    .hero-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+    .badge { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 4px 12px; font-size: 12px; color: var(--text2); }
+    .badge.purple { background: rgba(155,124,255,0.12); border-color: rgba(155,124,255,0.45); color: var(--purple); font-weight: 700; }
+    .badge.gold { background: rgba(212,168,67,0.12); border-color: var(--gold); color: var(--gold); font-weight: 700; }
+
+    .section { padding: 0 16px; margin-top: 20px; }
+    .section-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text3); font-weight: 700; margin-bottom: 10px; padding: 0 4px; }
+
+    .note { background: rgba(155,124,255,0.08); border: 1px solid rgba(155,124,255,0.25); border-radius: var(--radius-sm); padding: 12px 14px; margin-bottom: 12px; }
+    .note-title { font-size: 12px; color: var(--purple); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+    .note-text { font-size: 13px; color: var(--text2); }
+
+    .flight-card, .day-card, .info-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .flight-leg { padding: 14px 16px; display: flex; align-items: center; gap: 12px; }
+    .flight-leg + .flight-leg { border-top: 1px solid var(--border); }
+    .flight-times { display: flex; align-items: center; gap: 10px; flex: 1; }
+    .flight-time-block { text-align: center; }
+    .flight-time { font-size: 18px; font-weight: 800; line-height: 1; }
+    .flight-city { font-size: 11px; color: var(--text3); margin-top: 2px; letter-spacing: 0.5px; }
+    .flight-arrow { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+    .flight-arrow-line { width: 100%; height: 1px; background: var(--border); position: relative; }
+    .flight-arrow-line::after { content: '>'; position: absolute; right: -4px; top: -9px; color: var(--text3); font-size: 14px; }
+    .flight-num { font-size: 11px; color: var(--text3); }
+    .flight-meta { text-align: right; }
+    .flight-meta-num { font-size: 12px; font-weight: 700; color: var(--purple); }
+    .flight-meta-dur { font-size: 11px; color: var(--text3); margin-top: 2px; }
+
+    .day-header { background: var(--surface2); padding: 10px 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+    .day-header-left { display: flex; flex-direction: column; gap: 2px; }
+    .day-name { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+    .day-date { font-size: 12px; color: var(--text3); }
+    .day-party { font-size: 11px; font-weight: 800; padding: 3px 9px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; background: rgba(155,124,255,0.12); border: 1px solid rgba(155,124,255,0.35); color: var(--purple); }
+    .timeline { padding: 8px 0; }
+    .timeline-item { display: flex; padding: 10px 16px; gap: 14px; position: relative; }
+    .timeline-item:not(:last-child)::after { content: ''; position: absolute; left: 38px; top: 34px; bottom: -10px; width: 1px; background: var(--border); }
+    .timeline-time { font-size: 12px; font-weight: 700; color: var(--text3); min-width: 52px; padding-top: 2px; text-align: right; flex-shrink: 0; }
+    .timeline-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); margin-top: 6px; flex-shrink: 0; }
+    .timeline-dot.blue { background: var(--blue); }
+    .timeline-dot.gold { background: var(--gold); }
+    .timeline-dot.green { background: var(--green); }
+    .timeline-dot.purple { background: var(--purple); }
+    .timeline-content { flex: 1; padding-bottom: 2px; }
+    .timeline-title { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+    .timeline-detail { font-size: 13px; color: var(--text2); line-height: 1.4; }
+    .timeline-note { font-size: 12px; color: var(--text3); margin-top: 3px; font-style: italic; }
+    .timeline-tag { display: inline-block; background: rgba(212,168,67,0.12); border: 1px solid rgba(212,168,67,0.3); color: var(--gold); font-size: 11px; padding: 2px 7px; border-radius: 4px; margin-top: 4px; font-weight: 700; }
+
+    .info-card-header { padding: 14px 16px 10px; display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+    .info-card-title { font-size: 16px; font-weight: 800; }
+    .info-card-sub { font-size: 12px; color: var(--text2); margin-top: 2px; }
+    .info-card-badge { font-size: 11px; font-weight: 800; background: rgba(212,168,67,0.12); border: 1px solid rgba(212,168,67,0.3); color: var(--gold); padding: 3px 9px; border-radius: 6px; white-space: nowrap; flex-shrink: 0; }
+    .info-divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+    .info-rows { padding: 8px 0; }
+    .info-row { display: flex; justify-content: space-between; align-items: baseline; padding: 7px 16px; gap: 12px; }
+    .info-row-label { font-size: 13px; color: var(--text2); flex-shrink: 0; }
+    .info-row-value { font-size: 13px; font-weight: 600; text-align: right; }
+    .info-row-value a { color: var(--purple); text-decoration: none; }
+
+    .footer { margin-top: 32px; padding: 0 20px; text-align: center; font-size: 12px; color: var(--text3); }
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <div class="hero-eyebrow">Chicago, Illinois</div>
+    <div class="hero-title">BTS at Soldier Field</div>
+    <div class="hero-subtitle">August 27-29, 2026 · Kim + friends · Vic possible</div>
+    <div class="hero-badges">
+      <div class="badge purple">Soldier Field</div>
+      <div class="badge">XNA ⇄ ORD nonstop</div>
+      <div class="badge gold">Marriott preferred</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="note">
+      <div class="note-title">Public share version</div>
+      <div class="note-text">This page is sanitized for friends and family. Private residence details, driver contacts, booking references, and exact pickup notes stay off the hosted page.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Flights</div>
+    <div class="flight-card">
+      <div class="flight-leg">
+        <div class="flight-times">
+          <div class="flight-time-block">
+            <div class="flight-time">9:13a</div>
+            <div class="flight-city">XNA</div>
+          </div>
+          <div class="flight-arrow">
+            <div class="flight-arrow-line"></div>
+            <div class="flight-num">Nonstop</div>
+          </div>
+          <div class="flight-time-block">
+            <div class="flight-time">11:14a</div>
+            <div class="flight-city">ORD</div>
+          </div>
+        </div>
+        <div class="flight-meta">
+          <div class="flight-meta-num">Outbound</div>
+          <div class="flight-meta-dur">Thu Aug 27 · 2h 01m</div>
+        </div>
+      </div>
+      <div class="flight-leg">
+        <div class="flight-times">
+          <div class="flight-time-block">
+            <div class="flight-time">4:59p</div>
+            <div class="flight-city">ORD</div>
+          </div>
+          <div class="flight-arrow">
+            <div class="flight-arrow-line"></div>
+            <div class="flight-num">Nonstop</div>
+          </div>
+          <div class="flight-time-block">
+            <div class="flight-time">6:59p</div>
+            <div class="flight-city">XNA</div>
+          </div>
+        </div>
+        <div class="flight-meta">
+          <div class="flight-meta-num">Return</div>
+          <div class="flight-meta-dur">Sat Aug 29 · 2h 00m</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Itinerary</div>
+
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-header-left">
+          <div class="day-name">Thursday — Arrival + Show</div>
+          <div class="day-date">August 27</div>
+        </div>
+        <div class="day-party">Kim + friends</div>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-time">9:13a</div>
+          <div class="timeline-dot blue"></div>
+          <div class="timeline-content">
+            <div class="timeline-title">Depart XNA</div>
+            <div class="timeline-detail">Nonstop to Chicago O'Hare.</div>
+            <div class="timeline-note">Airport transfer should arrive at XNA by 7:13 AM.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">11:14a</div>
+          <div class="timeline-dot blue"></div>
+          <div class="timeline-content">
+            <div class="timeline-title">Arrive ORD</div>
+            <div class="timeline-detail">Private transfer planned from O'Hare to the lodging/friend stop.</div>
+            <div class="timeline-note">Public page keeps pickup details general.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">Afternoon</div>
+          <div class="timeline-dot green"></div>
+          <div class="timeline-content">
+            <div class="timeline-title">Settle in</div>
+            <div class="timeline-detail">Hotel check-in or friend visit before the Soldier Field transfer.</div>
+            <div class="timeline-note">Enough buffer to be comfortable before a 2 PM target window.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">Evening</div>
+          <div class="timeline-dot purple"></div>
+          <div class="timeline-content">
+            <div class="timeline-title">BTS at Soldier Field</div>
+            <div class="timeline-detail">1410 Special Olympics Dr, Chicago, IL 60605.</div>
+            <div class="timeline-tag">Event entry/show time TBD</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-header-left">
+          <div class="day-name">Friday — Chicago Buffer Day</div>
+          <div class="day-date">August 28</div>
+        </div>
+        <div class="day-party">Flexible</div>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-time">Daytime</div>
+          <div class="timeline-dot green"></div>
+          <div class="timeline-content">
+            <div class="timeline-title">Open Chicago day</div>
+            <div class="timeline-detail">Keep this flexible for recovery, friends/family time, or a curated Chicago plan once the group is final.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">Evening</div>
+          <div class="timeline-dot gold"></div>
+          <div class="timeline-content">
+            <div class="timeline-title">Dinner placeholder</div>
+            <div class="timeline-detail">Restaurant plan TBD after hotel and group size are confirmed.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-header-left">
+          <div class="day-name">Saturday — Return</div>
+          <div class="day-date">August 29</div>
+        </div>
+        <div class="day-party">Travel day</div>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-time">2:15p</div>
+          <div class="timeline-dot blue"></div>
+          <div class="timeline-content">
+            <div class="timeline-title">Head to ORD</div>
+            <div class="timeline-detail">Private transfer planned. Target airport arrival is 2:59 PM, two hours before departure.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">4:59p</div>
+          <div class="timeline-dot blue"></div>
+          <div class="timeline-content">
+            <div class="timeline-title">Depart ORD</div>
+            <div class="timeline-detail">Nonstop to XNA.</div>
+            <div class="timeline-note">Arrive XNA 6:59 PM.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Hotel Target</div>
+    <div class="info-card">
+      <div class="info-card-header">
+        <div>
+          <div class="info-card-title">Marriott Marquis Chicago</div>
+          <div class="info-card-sub">McCormick Square · strong Soldier Field logistics</div>
+        </div>
+        <div class="info-card-badge">Marriott</div>
+      </div>
+      <hr class="info-divider">
+      <div class="info-rows">
+        <div class="info-row">
+          <div class="info-row-label">Why this one</div>
+          <div class="info-row-value">Best Marriott fit near Soldier Field</div>
+        </div>
+        <div class="info-row">
+          <div class="info-row-label">To Soldier Field</div>
+          <div class="info-row-value">Short private transfer</div>
+        </div>
+        <div class="info-row">
+          <div class="info-row-label">Booking</div>
+          <div class="info-row-value"><a href="https://www.marriott.com/en-us/hotels/chimq-marriott-marquis-chicago/overview/" target="_blank">Marriott.com</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Logistics &amp; Notes</div>
+    <div class="note">
+      <div class="note-title">Driver status</div>
+      <div class="note-text">Private black car / SUV service is planned for airport transfers and Soldier Field movements. Exact pickup locations and driver contact details are kept private.</div>
+    </div>
+    <div class="note">
+      <div class="note-title">Time-sensitive</div>
+      <div class="note-text">Book hotel rooms and event transportation early. Soldier Field event traffic will make post-show pickup planning important.</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Chicago BTS · August 27-29, 2026<br>
+    <span style="color: var(--text3);">Draft public page · August 2026</span>
+  </div>
+
+</body>
+</html>
