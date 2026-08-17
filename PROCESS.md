@@ -122,12 +122,12 @@ Ground transport rule:
 
 Vic decides when a trip is no longer active. The itinerary agent handles the repo edits when asked to "decommission," "archive," or "retire" a trip.
 
-Default decommissioning means **delist and archive, not delete**:
+Default decommissioning means **delist, archive, and disable the detail page**:
 
 1. Remove the trip card from `menu.html` so it no longer appears on the public Trip Pages menu.
-2. Move the trip from Active or Planning to Archived in `index.html`.
+2. Move the trip from Active or Planning to Archived in `index.html`, but do not link the archived row to the old page.
 3. If `next/index.html` points to that trip, rotate `/next/` to the new current trip before publishing.
-4. Leave the trip folder in place unless Vic explicitly asks to delete it or the page contains sensitive data that should not remain hosted.
+4. Replace the trip detail page with an archived/retired notice so old shared links no longer render itinerary details.
 5. If the LifeOS project/action note has open publishing tasks, mark them resolved or add a note that the page was archived.
 6. Verify the public surfaces after publishing: `menu.html`, `index.html`, and `/next/`.
 
