@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0f0f13">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Dinner">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" href="../app-icon.svg">
+  <link rel="manifest" href="../site.webmanifest">
+  <title>Henderson Dinner Options</title>
+  <style>
+    :root {
+      --bg: #0f0f13; --surface: #1b1a24; --surface2: #242233;
+      --border: #343148; --text: #f1eff8; --muted: #aaa3bd;
+      --accent: #d4a843; --pink: #e66aa5; --radius: 14px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 15px; line-height: 1.5; max-width: 560px;
+      margin: 0 auto; padding: 28px 18px 56px;
+    }
+    a { color: var(--accent); }
+    .back { color: var(--muted); text-decoration: none; font-size: 12px; font-weight: 700; }
+    .hero { padding: 22px 0 24px; border-bottom: 1px solid var(--border); margin-bottom: 22px; }
+    .eyebrow { color: var(--pink); text-transform: uppercase; letter-spacing: 2px; font-size: 10px; font-weight: 800; margin-bottom: 6px; }
+    h1 { font-size: clamp(26px, 8vw, 34px); line-height: 1.08; margin-bottom: 8px; }
+    .sub { color: var(--muted); font-size: 14px; }
+    .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .badge { border: 1px solid var(--border); background: var(--surface); border-radius: 999px; padding: 5px 11px; color: var(--muted); font-size: 12px; }
+    .section { margin-top: 22px; }
+    .section-label { color: var(--muted); text-transform: uppercase; letter-spacing: 2px; font-size: 10px; font-weight: 800; margin-bottom: 10px; }
+
+    .vote-cta {
+      display: block; text-align: center; text-decoration: none;
+      background: linear-gradient(135deg, var(--accent), var(--pink));
+      color: #15121c; font-weight: 800; font-size: 16px;
+      border-radius: var(--radius); padding: 16px; margin-bottom: 8px;
+    }
+    .vote-cta .arrow { margin-left: 6px; }
+
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px; margin-bottom: 12px;
+    }
+    .card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 4px; }
+    .card-title { font-size: 17px; font-weight: 800; }
+    .card-vibe { color: var(--muted); font-size: 13px; margin-bottom: 12px; }
+    .open-pill {
+      display: inline-block; flex-shrink: 0; background: var(--surface2);
+      border: 1px solid var(--border); color: var(--accent);
+      font-size: 11px; font-weight: 700; border-radius: 999px; padding: 4px 9px;
+      white-space: nowrap;
+    }
+    .meta-row {
+      display: flex; align-items: center; gap: 10px;
+      border-top: 1px solid var(--border); padding: 9px 0;
+      text-decoration: none; color: var(--text); font-size: 13.5px;
+    }
+    .meta-row:first-of-type { border-top: 1px solid var(--border); }
+    .meta-icon { width: 18px; text-align: center; flex-shrink: 0; }
+    .meta-row .meta-text { color: var(--text); }
+    .meta-row.link .meta-text { color: var(--accent); }
+
+    footer { margin-top: 26px; color: var(--muted); font-size: 12px; text-align: center; }
+  </style>
+</head>
+<body>
+  <a class="back" href="index.html">← Las Vegas trip</a>
+
+  <header class="hero">
+    <div class="eyebrow">Henderson, Nevada</div>
+    <h1>Where's dinner tonight?</h1>
+    <div class="sub">4 options, all in Henderson · group of 8 · reservations recommended</div>
+    <div class="badges">
+      <div class="badge">Tonight</div>
+      <div class="badge">Henderson only</div>
+      <div class="badge">Party of 8</div>
+    </div>
+  </header>
+
+  <section class="section">
+    <a class="vote-cta" href="https://strawpoll.com/e7ZJa542Gg3" target="_blank" rel="noopener">
+      🗳️ Vote on the group poll <span class="arrow">→</span>
+    </a>
+  </section>
+
+  <section class="section">
+    <div class="section-label">The options</div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">🥩 Hank's Fine Steaks &amp; Martinis</div>
+        <div class="open-pill">Open till 11pm</div>
+      </div>
+      <div class="card-vibe">Upscale steakhouse inside Green Valley Ranch · dark, classic, adult-friendly</div>
+      <a class="meta-row" href="tel:+17026177515">
+        <span class="meta-icon">📞</span><span class="meta-text">(702) 617-7515</span>
+      </a>
+      <a class="meta-row link" href="https://maps.apple.com/?q=2300+Paseo+Verde+Parkway+Henderson+NV+89052" target="_blank" rel="noopener">
+        <span class="meta-icon">📍</span><span class="meta-text">2300 Paseo Verde Pkwy, Henderson, NV 89052</span>
+      </a>
+      <a class="meta-row link" href="https://greenvalleyranch.sclv.com/Dining/Hanks" target="_blank" rel="noopener">
+        <span class="meta-icon">🔗</span><span class="meta-text">greenvalleyranch.sclv.com/Dining/Hanks</span>
+      </a>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">🍝 Ventano Italian Grill &amp; Seafood</div>
+        <div class="open-pill">Open till 10pm</div>
+      </div>
+      <div class="card-vibe">Italian &amp; seafood with a Strip view · romantic, grown-up, quieter room</div>
+      <a class="meta-row" href="tel:+17029444848">
+        <span class="meta-icon">📞</span><span class="meta-text">(702) 944-4848</span>
+      </a>
+      <a class="meta-row link" href="https://maps.apple.com/?q=191+S+Arroyo+Grande+Blvd+Henderson+NV+89012" target="_blank" rel="noopener">
+        <span class="meta-icon">📍</span><span class="meta-text">191 S Arroyo Grande Blvd, Henderson, NV 89012</span>
+      </a>
+      <a class="meta-row link" href="https://www.ventanoitalian.com" target="_blank" rel="noopener">
+        <span class="meta-icon">🔗</span><span class="meta-text">ventanoitalian.com</span>
+      </a>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">🐟 King's Fish House</div>
+        <div class="open-pill">Dinner till 10pm</div>
+      </div>
+      <div class="card-vibe">Casual-upscale seafood · broad menu, easy and reliable for a group of 8</div>
+      <a class="meta-row" href="tel:+17028358900">
+        <span class="meta-icon">📞</span><span class="meta-text">(702) 835-8900</span>
+      </a>
+      <a class="meta-row link" href="https://maps.apple.com/?q=2255+Village+Walk+Dr+Henderson+NV+89052" target="_blank" rel="noopener">
+        <span class="meta-icon">📍</span><span class="meta-text">2255 Village Walk Dr #139, Henderson, NV 89052</span>
+      </a>
+      <a class="meta-row link" href="https://www.kingsfishhouse.com/henderson" target="_blank" rel="noopener">
+        <span class="meta-icon">🔗</span><span class="meta-text">kingsfishhouse.com/henderson</span>
+      </a>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">🌶️ Juan's Flaming Fajitas &amp; Cantina</div>
+        <div class="open-pill">Open till 9-10pm</div>
+      </div>
+      <div class="card-vibe">Lively Mexican in the Water Street District · fun, energetic, sizzling fajitas</div>
+      <a class="meta-row" href="tel:+17024764647">
+        <span class="meta-icon">📞</span><span class="meta-text">(702) 476-4647</span>
+      </a>
+      <a class="meta-row link" href="https://maps.apple.com/?q=16+S+Water+St+Henderson+NV+89015" target="_blank" rel="noopener">
+        <span class="meta-icon">📍</span><span class="meta-text">16 S Water St, Henderson, NV 89015</span>
+      </a>
+      <a class="meta-row link" href="https://juansflamingfajitas.com" target="_blank" rel="noopener">
+        <span class="meta-icon">🔗</span><span class="meta-text">juansflamingfajitas.com</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <a class="vote-cta" href="https://strawpoll.com/e7ZJa542Gg3" target="_blank" rel="noopener">
+      🗳️ Vote now <span class="arrow">→</span>
+    </a>
+  </section>
+
+  <footer>Reservations recommended for all four tonight — call ahead for a party of 8.</footer>
+</body>
+</html>
