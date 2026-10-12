@@ -14,49 +14,80 @@
   <style>
     :root {
       --bg: #0f1117; --surface: #1a1d27; --surface2: #22263a;
-      --border: #2e3350; --text: #e8eaf0; --muted: #8a91ad;
-      --accent: #3ecf8e; --gold: #c9973a; --radius: 14px;
+      --border: #2e3350; --text: #e8eaf0; --muted: #9ba2ba;
+      --accent: #3ecf8e; --gold: #d2a54f; --radius: 14px;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       background: var(--bg); color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: 15px; line-height: 1.5; max-width: 560px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 15px; line-height: 1.5; max-width: 620px;
       margin: 0 auto; padding: 28px 18px 56px;
     }
     a { color: var(--accent); }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
     .back { color: var(--muted); text-decoration: none; font-size: 12px; font-weight: 700; }
+    .print {
+      appearance: none; border: 1px solid var(--border); background: var(--surface);
+      color: var(--text); border-radius: 999px; padding: 7px 12px;
+      font: inherit; font-size: 12px; font-weight: 700; cursor: pointer;
+    }
     .hero { padding: 22px 0 24px; border-bottom: 1px solid var(--border); margin-bottom: 22px; }
     .eyebrow { color: var(--gold); text-transform: uppercase; letter-spacing: 2px; font-size: 10px; font-weight: 800; margin-bottom: 6px; }
-    h1 { font-size: clamp(25px, 7vw, 32px); line-height: 1.1; margin-bottom: 8px; }
+    h1 { font-size: clamp(25px, 7vw, 34px); line-height: 1.1; margin-bottom: 8px; }
     .sub { color: var(--muted); font-size: 14px; }
     .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
     .badge { border: 1px solid var(--border); background: var(--surface); border-radius: 999px; padding: 5px 11px; color: var(--muted); font-size: 12px; }
-    .section { margin-top: 22px; }
+    .section { margin-top: 24px; }
     .section-label { color: var(--muted); text-transform: uppercase; letter-spacing: 2px; font-size: 10px; font-weight: 800; margin-bottom: 10px; }
-    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 15px; margin-bottom: 10px; }
+    .card, .agenda-day { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
+    .card { padding: 15px; margin-bottom: 10px; }
     .row { display: flex; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--border); padding: 9px 0; }
     .row:last-child { border-bottom: 0; }
     .row span:first-child { color: var(--muted); }
     .row span:last-child { text-align: right; font-weight: 700; }
-    .day { display: grid; grid-template-columns: 86px 1fr; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
-    .day:last-child { border-bottom: 0; }
-    .date { color: var(--gold); font-weight: 800; font-size: 12px; }
-    .plan { color: var(--text); }
+    .agenda-day { margin-bottom: 12px; overflow: hidden; }
+    .day-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; padding: 15px; background: var(--surface2); }
+    .date { color: var(--gold); font-weight: 800; font-size: 11px; letter-spacing: 1.2px; }
+    h2 { font-size: 18px; line-height: 1.2; margin-top: 3px; }
+    .forecast { flex: 0 0 auto; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); padding: 4px 8px; font-size: 11px; white-space: nowrap; }
+    .agenda { padding: 4px 15px; }
+    .agenda-item { display: grid; grid-template-columns: 76px 1fr; gap: 10px; padding: 11px 0; border-bottom: 1px solid var(--border); }
+    .agenda-item:last-child { border-bottom: 0; }
+    .time { color: var(--accent); font-size: 12px; font-weight: 800; }
+    .item { font-weight: 700; }
+    .where { color: var(--muted); font-size: 12px; margin-top: 2px; }
     .note { color: var(--muted); font-size: 13px; margin-top: 6px; }
+    .watch { border-left: 3px solid var(--gold); }
+    @media (max-width: 380px) {
+      .agenda-item { grid-template-columns: 66px 1fr; }
+      .forecast { font-size: 10px; }
+    }
+    @media print {
+      :root { --bg: #fff; --surface: #fff; --surface2: #f2f3f5; --border: #c8cbd1; --text: #111; --muted: #555; --accent: #096b47; --gold: #76520e; }
+      body { max-width: none; padding: 0; font-size: 11px; }
+      .topbar, .print { display: none; }
+      .hero { padding-top: 0; margin-bottom: 12px; }
+      .section { margin-top: 14px; }
+      .agenda-day, .card { break-inside: avoid; }
+      .agenda-item { padding: 6px 0; }
+    }
   </style>
 </head>
 <body>
-  <a class="back" href="../index.html">← Itineraries</a>
+  <div class="topbar">
+    <a class="back" href="../index.html">← Itineraries</a>
+    <button class="print" type="button" onclick="window.print()">Print itinerary</button>
+  </div>
 
   <header class="hero">
     <div class="eyebrow">Dublin, Ireland</div>
     <h1>Ireland Pilgrimage 2026</h1>
-    <div class="sub">Vic + spouse · Mercy Formation · Dublin-only planning view</div>
+    <div class="sub">Mercy Formation · Detailed daily agenda · Dublin base</div>
     <div class="badges">
-      <div class="badge">Planning</div>
-      <div class="badge">October 2026</div>
-      <div class="badge">Dublin base</div>
+      <div class="badge">October 9–17</div>
+      <div class="badge">Blue group</div>
+      <div class="badge">The Merrion</div>
     </div>
   </header>
 
@@ -64,29 +95,142 @@
     <div class="section-label">Overview</div>
     <div class="card">
       <div class="row"><span>Purpose</span><span>Mercy Formation pilgrimage</span></div>
-      <div class="row"><span>Destination</span><span>Dublin, Ireland</span></div>
-      <div class="row"><span>Primary hotel</span><span>The Merrion</span></div>
-      <div class="row"><span>Flight plan</span><span>American via CLT</span></div>
+      <div class="row"><span>Program</span><span>October 11–15</span></div>
+      <div class="row"><span>Base</span><span>The Merrion, Dublin</span></div>
+      <div class="row"><span>Attire</span><span>Casual days; business-casual dinners</span></div>
     </div>
   </section>
 
   <section class="section">
-    <div class="section-label">Itinerary shape</div>
-    <div class="card">
-      <div class="day"><div class="date">Oct 9–10</div><div><div class="plan">Travel to Dublin</div><div class="note">Overnight eastbound flight; arrive Saturday morning.</div></div></div>
-      <div class="day"><div class="date">Oct 10–11</div><div><div class="plan">Arrival weekend</div><div class="note">Settle in, recover, and keep logistics light.</div></div></div>
-      <div class="day"><div class="date">Oct 12–16</div><div><div class="plan">Mercy Formation program</div><div class="note">Group schedule governs the weekdays.</div></div></div>
-      <div class="day"><div class="date">Oct 17</div><div><div class="plan">Return to XNA</div><div class="note">Dublin US preclearance; allow a full airport buffer.</div></div></div>
-    </div>
+    <div class="section-label">Daily agenda</div>
+
+    <article class="agenda-day">
+      <div class="day-head">
+        <div><div class="date">FRIDAY · OCT 9</div><h2>Travel to Ireland</h2></div>
+        <div class="forecast">Travel day</div>
+      </div>
+      <div class="agenda">
+        <div class="agenda-item"><div class="time">Afternoon</div><div><div class="item">Depart Northwest Arkansas</div><div class="where">XNA · Highfill, Arkansas</div></div></div>
+        <div class="agenda-item"><div class="time">Evening</div><div><div class="item">Connect and begin overnight flight</div><div class="where">Charlotte Douglas International Airport</div></div></div>
+      </div>
+    </article>
+
+    <article class="agenda-day">
+      <div class="day-head">
+        <div><div class="date">SATURDAY · OCT 10</div><h2>Arrive and settle in</h2></div>
+        <div class="forecast">Arrival day</div>
+      </div>
+      <div class="agenda">
+        <div class="agenda-item"><div class="time">Morning</div><div><div class="item">Arrive in Dublin</div><div class="where">Dublin Airport</div></div></div>
+        <div class="agenda-item"><div class="time">Daytime</div><div><div class="item">Check in as available and recover from travel</div><div class="where"><a href="https://www.merrionhotel.com/">The Merrion Hotel</a></div></div></div>
+        <div class="agenda-item"><div class="time">Evening</div><div><div class="item">Dinner at leisure</div><div class="where">Dublin</div></div></div>
+      </div>
+    </article>
+
+    <article class="agenda-day">
+      <div class="day-head">
+        <div><div class="date">SUNDAY · OCT 11</div><h2>Pilgrimage welcome</h2></div>
+        <div class="forecast">Program begins</div>
+      </div>
+      <div class="agenda">
+        <div class="agenda-item"><div class="time">Daytime</div><div><div class="item">Open day</div><div class="where">Dublin</div></div></div>
+        <div class="agenda-item"><div class="time">5–6:30 PM</div><div><div class="item">Welcome reception · cocktails and appetizers</div><div class="where">Wellington Room · The Merrion Hotel</div></div></div>
+        <div class="agenda-item"><div class="time">Afterward</div><div><div class="item">Dinner on your own</div><div class="where">Dublin</div></div></div>
+      </div>
+    </article>
+
+    <article class="agenda-day">
+      <div class="day-head">
+        <div><div class="date">MONDAY · OCT 12</div><h2>Catherine McAuley’s Dublin</h2></div>
+        <div class="forecast">🌦 66°/58° · 98%</div>
+      </div>
+      <div class="agenda">
+        <div class="agenda-item"><div class="time">From 6 AM</div><div><div class="item">Breakfast</div><div class="where">Fitzgerald and Wellesley Rooms · The Merrion</div></div></div>
+        <div class="agenda-item"><div class="time">8 AM</div><div><div class="item">Opening presentation</div><div class="where">Wellington Room · The Merrion</div></div></div>
+        <div class="agenda-item"><div class="time">9 AM</div><div><div class="item">Blue group gathers</div><div class="where">Lobby · The Merrion</div></div></div>
+        <div class="agenda-item"><div class="time">9:15 AM</div><div><div class="item">Welcome and formation experience</div><div class="where">House of Mercy · Mercy International Centre</div></div></div>
+        <div class="agenda-item"><div class="time">12:30 PM</div><div><div class="item">Lunch</div><div class="where">House of Mercy</div></div></div>
+        <div class="agenda-item"><div class="time">1 PM</div><div><div class="item">Heritage Room experience</div><div class="where">House of Mercy</div></div></div>
+        <div class="agenda-item"><div class="time">1:45 PM</div><div><div class="item">Formation visits</div><div class="where">Townsend Street Depot and St. Teresa’s Church</div></div></div>
+        <div class="agenda-item"><div class="time">4 PM</div><div><div class="item">Program day concludes</div><div class="where">The Merrion Hotel</div></div></div>
+        <div class="agenda-item"><div class="time">Evening</div><div><div class="item">Dinner on your own</div><div class="where">Dublin</div></div></div>
+      </div>
+    </article>
+
+    <article class="agenda-day">
+      <div class="day-head">
+        <div><div class="date">TUESDAY · OCT 13</div><h2>Pilgrim’s Choice and Coolock</h2></div>
+        <div class="forecast">🌧 66°/55° · 86%</div>
+      </div>
+      <div class="agenda">
+        <div class="agenda-item"><div class="time">From 6 AM</div><div><div class="item">Breakfast</div><div class="where">Fitzgerald and Wellesley Rooms · The Merrion</div></div></div>
+        <div class="agenda-item"><div class="time">8 AM</div><div><div class="item">Meet Pilgrim’s Choice activity leader</div><div class="where">Lobby · The Merrion</div></div></div>
+        <div class="agenda-item"><div class="time">Morning</div><div><div class="item">Pilgrim’s Choice activity</div><div class="where">Assigned location in Dublin</div></div></div>
+        <div class="agenda-item"><div class="time">11:30 AM</div><div><div class="item">Lunch on your own</div><div class="where">Dublin</div></div></div>
+        <div class="agenda-item"><div class="time">12:45 PM</div><div><div class="item">Blue group gathers for Coolock</div><div class="where">Lobby · The Merrion</div></div></div>
+        <div class="agenda-item"><div class="time">1:30 PM</div><div><div class="item">Coolock formation experience</div><div class="where">Coolock House</div></div></div>
+        <div class="agenda-item"><div class="time">3:30–5 PM</div><div><div class="item">Program and reflection</div><div class="where">Wellington Room · The Merrion</div></div></div>
+        <div class="agenda-item"><div class="time">7 PM</div><div><div class="item">Group dinner</div><div class="where">Fitzgerald and Wellesley Rooms · The Merrion</div></div></div>
+      </div>
+    </article>
+
+    <article class="agenda-day">
+      <div class="day-head">
+        <div><div class="date">WEDNESDAY · OCT 14</div><h2>Free day and closing events</h2></div>
+        <div class="forecast">☁ 64°/55° · 22%</div>
+      </div>
+      <div class="agenda">
+        <div class="agenda-item"><div class="time">6–8 AM</div><div><div class="item">Breakfast</div><div class="where">Fitzgerald and Wellesley Rooms · The Merrion</div></div></div>
+        <div class="agenda-item"><div class="time">Daytime</div><div><div class="item">Free day · lunch on your own</div><div class="where">Dublin or an independently arranged day trip</div></div></div>
+        <div class="agenda-item"><div class="time">4:45–6:15</div><div><div class="item">Group reflection and closing</div><div class="where">Wellington Room · The Merrion</div></div></div>
+        <div class="agenda-item"><div class="time">6:45 PM</div><div><div class="item">Gather for group dinner</div><div class="where">Lobby · The Merrion</div></div></div>
+        <div class="agenda-item"><div class="time">7:30–10 PM</div><div><div class="item">Dinner and fellowship with Pilgrimage Group 2</div><div class="where"><a href="https://www.guinness-storehouse.com/en/home">Guinness Storehouse</a> · St. James’s Gate</div></div></div>
+      </div>
+    </article>
+
+    <article class="agenda-day">
+      <div class="day-head">
+        <div><div class="date">THURSDAY · OCT 15</div><h2>Personal extension begins</h2></div>
+        <div class="forecast">🌦 63°/51° · 65%</div>
+      </div>
+      <div class="agenda">
+        <div class="agenda-item"><div class="time">6–8 AM</div><div><div class="item">Breakfast</div><div class="where">Fitzgerald and Wellesley Rooms · The Merrion</div></div></div>
+        <div class="agenda-item"><div class="time">Daytime</div><div><div class="item">Open personal day after the group program</div><div class="where">Dublin</div></div></div>
+      </div>
+    </article>
+
+    <article class="agenda-day">
+      <div class="day-head">
+        <div><div class="date">FRIDAY · OCT 16</div><h2>Final full day</h2></div>
+        <div class="forecast">☁ 57°/48° · 17%</div>
+      </div>
+      <div class="agenda">
+        <div class="agenda-item"><div class="time">Daytime</div><div><div class="item">Open personal day</div><div class="where">Dublin</div></div></div>
+        <div class="agenda-item"><div class="time">Evening</div><div><div class="item">Final dinner · selection pending</div><div class="where">Dublin</div></div></div>
+      </div>
+    </article>
+
+    <article class="agenda-day">
+      <div class="day-head">
+        <div><div class="date">SATURDAY · OCT 17</div><h2>Return home</h2></div>
+        <div class="forecast">☁ 54°/43° · 17%</div>
+      </div>
+      <div class="agenda">
+        <div class="agenda-item"><div class="time">Morning</div><div><div class="item">Check out and depart for return flight</div><div class="where">The Merrion Hotel</div></div></div>
+        <div class="agenda-item"><div class="time">Late morning</div><div><div class="item">Return travel begins</div><div class="where">Dublin Airport</div></div></div>
+        <div class="agenda-item"><div class="time">Evening</div><div><div class="item">Arrive in Northwest Arkansas</div><div class="where">XNA · Highfill, Arkansas</div></div></div>
+      </div>
+    </article>
   </section>
 
   <section class="section">
     <div class="section-label">Reservations to watch</div>
-    <div class="card">
-      <div class="day"><div class="date">Dining</div><div><div class="plan">Book the top Dublin dinners early</div><div class="note">Sunday/Monday closures make the good windows scarce.</div></div></div>
-      <div class="day"><div class="date">Hotel</div><div><div class="plan">Confirm early check-in strategy</div><div class="note">Arrival is well before standard check-in.</div></div></div>
-      <div class="day"><div class="date">Return</div><div><div class="plan">Protect the CLT connection</div><div class="note">Flag timing before ticketing if a larger buffer is preferred.</div></div></div>
+    <div class="card watch">
+      <div class="row"><span>Oct 15 dinner</span><span><a href="https://chapteronerestaurant.com/">Chapter One</a> · time-sensitive</span></div>
+      <div class="row"><span>Oct 16 dinner</span><span>Selection pending</span></div>
+      <div class="row"><span>Hotel</span><span>Confirm final extension night</span></div>
     </div>
+    <div class="note">Program times reflect the official Formation Pilgrimage itinerary. Pilgrim’s Choice assignment remains pending.</div>
   </section>
 </body>
 </html>
