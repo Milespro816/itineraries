@@ -3,275 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#101114">
+  <meta name="theme-color" content="#0f0f0f">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Nashville">
+  <meta name="apple-mobile-web-app-title" content="Archived">
+  <meta name="mobile-web-app-capable" content="yes">
   <link rel="apple-touch-icon" href="../app-icon.svg">
   <link rel="manifest" href="../site.webmanifest">
-  <title>Nashville &amp; Brentwood — November 17–20, 2026</title>
+  <title>Nashville Trip — Archived</title>
   <style>
     :root {
-      color-scheme: dark;
-      --bg: #101114; --surface: #191b20; --surface2: #22252c;
-      --border: #343840; --text: #f2f0eb; --muted: #b1b4bc;
-      --accent: #e9bd78; --green: #92cfad; --radius: 16px;
+      --bg: #0f0f0f; --surface: #1a1a1a; --border: #2e2e2e;
+      --text: #f0f0f0; --text2: #a0a0a0; --text3: #555; --gold: #d4a843;
     }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      margin: 0 auto; max-width: 720px; padding: 24px 18px 48px;
       background: var(--bg); color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-size: 15px; line-height: 1.5;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      min-height: 100vh; display: grid; place-items: center;
+      padding: 28px 20px; text-align: center;
     }
-    a { color: var(--accent); text-underline-offset: 3px; }
-    a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
-    h1, h2, h3, p { margin: 0; }
-    .topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-    .back { color: var(--muted); font-size: 12px; text-decoration: none; }
-    button {
-      font: inherit; font-size: 12px; font-weight: 700; color: var(--text);
-      border: 1px solid var(--border); border-radius: 24px;
-      background: var(--surface); padding: 9px 14px; cursor: pointer;
-    }
-    .change { margin-top: 18px; color: var(--muted); font-size: 11px; }
-    .hero { padding: 26px 0 24px; }
-    .eyebrow, .section-label {
-      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
-      font-weight: 800; color: var(--accent);
-    }
-    h1 { font-size: clamp(34px, 9vw, 50px); line-height: 1.05; letter-spacing: -1.5px; margin: 9px 0 10px; }
-    .subtitle { color: var(--muted); font-size: 15px; }
-    .badges { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 18px; }
-    .badge { font-size: 11px; padding: 4px 10px; border-radius: 24px; border: 1px solid var(--border); color: var(--muted); }
-    .badge.gold { color: var(--accent); border-color: #705632; }
-    nav {
-      position: sticky; top: 0; z-index: 1; background: var(--bg);
-      display: flex; justify-content: space-between; gap: 6px;
-      padding: 13px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-    }
-    nav a { font-size: 12px; font-weight: 700; color: var(--muted); text-decoration: none; padding: 4px 0; }
-    .section { margin-top: 28px; }
-    .section-label { margin-bottom: 12px; }
-    .intro { color: var(--muted); font-size: 12px; margin-bottom: 14px; }
-    .day, .card { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); margin-bottom: 14px; overflow: hidden; }
-    .day-head { padding: 17px 16px; background: var(--surface2); display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
-    .date { color: var(--accent); font-size: 11px; font-weight: 800; letter-spacing: 1px; }
-    h2 { font-size: 20px; line-height: 1.2; margin-top: 4px; }
-    .forecast { flex-shrink: 0; color: var(--muted); font-size: 10px; border: 1px solid var(--border); border-radius: 24px; padding: 4px 8px; }
-    .agenda { list-style: none; margin: 0; padding: 0 16px; }
-    .agenda li { display: grid; grid-template-columns: 82px 1fr; gap: 12px; padding: 15px 0; border-bottom: 1px solid var(--border); }
-    .agenda li:last-child { border-bottom: 0; }
-    .time { color: var(--accent); font-size: 12px; font-weight: 800; }
-    .item { font-weight: 700; font-size: 14px; }
-    .detail { color: var(--muted); font-size: 12px; margin-top: 3px; }
-    .status { display: inline-block; color: var(--accent); font-size: 10px; font-weight: 700; margin-top: 5px; }
-    .card { padding: 17px 16px; }
-    h3 { font-size: 16px; }
-    .flight { margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--border); }
-    .flight-label { color: var(--accent); font-size: 11px; font-weight: 800; }
-    .route { display: grid; grid-template-columns: 1fr 24px 1fr; align-items: center; gap: 10px; margin-top: 8px; }
-    .airport { font-size: 21px; font-weight: 800; }
-    .route .arrival { text-align: right; }
-    .arrow { color: var(--muted); text-align: center; }
-    .flight-time { font-size: 13px; }
-    .city { font-size: 11px; color: var(--muted); }
-    .connection { margin-top: 12px; padding: 8px 10px; background: var(--surface2); border-radius: 8px; color: var(--muted); font-size: 12px; }
-    .facts { margin: 14px 0 0; }
-    .facts div { display: flex; justify-content: space-between; gap: 16px; padding: 9px 0; border-top: 1px solid var(--border); font-size: 12px; }
-    dt { color: var(--muted); }
-    dd { margin: 0; text-align: right; }
-    .watch { border-left: 3px solid var(--accent); }
-    .watch-list { margin: 12px 0 0; padding-left: 18px; font-size: 13px; color: var(--muted); }
-    .watch-list li { margin: 10px 0; }
-    .watch-list strong { color: var(--text); }
-    footer { margin-top: 28px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 11px; color: var(--muted); }
-    footer p + p { margin-top: 8px; }
-    @media (max-width: 360px) {
-      body { padding-left: 12px; padding-right: 12px; }
-      .day-head { flex-wrap: wrap; }
-      .agenda li { grid-template-columns: 70px 1fr; gap: 8px; }
-      nav a { font-size: 11px; }
-    }
-    @media print {
-      :root { color-scheme: light; --bg: #fff; --surface: #fff; --surface2: #f3f3f3; --border: #bbb; --text: #111; --muted: #444; --accent: #614419; }
-      body { max-width: none; padding: 0; font-size: 12px; }
-      .topbar, .change, nav, footer, .forecast { display: none; }
-      .hero { padding: 0 0 16px; }
-      h1 { font-size: 30px; }
-      .section { margin-top: 18px; }
-      .day, .card { break-inside: avoid; page-break-inside: avoid; }
-      a { color: #111; text-decoration: none; }
-      .badge { border-color: #999; }
-      .badge.gold { color: #614419; border-color: #999; }
-    }
+    main { max-width: 380px; }
+    .eyebrow { color: var(--text3); font-size: 10px; font-weight: 800; letter-spacing: 2px; margin-bottom: 8px; text-transform: uppercase; }
+    h1 { font-size: 26px; line-height: 1.1; margin-bottom: 10px; }
+    p { color: var(--text2); font-size: 14px; line-height: 1.5; margin-bottom: 18px; }
+    a { color: var(--gold); font-size: 13px; font-weight: 800; text-decoration: none; }
   </style>
 </head>
 <body>
-  <div class="topbar">
-    <a class="back" href="../menu.html">← Trip Pages</a>
-    <button id="print-button" type="button">Print itinerary</button>
-  </div>
-  <p class="change">What changed · Tuesday's Zoom tasting corrected to 7:30–8:30 PM Central from the calendar.</p>
-  <header class="hero">
-    <div class="eyebrow">November 17–20, 2026</div>
-    <h1>Nashville<br>&amp; Brentwood</h1>
-    <p class="subtitle">A work trip, with evenings worth keeping.</p>
-    <div class="badges">
-      <span class="badge gold">2 travelers</span>
-      <span class="badge">3 nights · Sheraton Brentwood</span>
-      <span class="badge">American Airlines · Avis</span>
-    </div>
-  </header>
-  <nav aria-label="Itinerary sections">
-    <a href="#days">Day by day</a>
-    <a href="#flights">Flights</a>
-    <a href="#stay">Stay &amp; car</a>
-    <a href="#watch">To confirm</a>
-  </nav>
-
   <main>
-    <section class="section" id="days" aria-labelledby="days-title">
-      <h2 class="section-label" id="days-title">Day by day</h2>
-      <p class="intro">Nashville plans use Central Time. Flights below use each airport's local time. Flight times are calendar-derived; verify with American before travel.</p>
-      <article class="day">
-        <header class="day-head">
-          <div><div class="date">TUESDAY · NOV 17</div><h2>Arrive &amp; unwind</h2></div>
-          <span class="forecast">Forecast pending</span>
-        </header>
-        <ul class="agenda">
-          <li><div class="time">9:36 AM<br>CST</div><div><div class="item">Fly XNA → Charlotte</div><p class="detail">AA 3871 · Arrive 12:51 PM Eastern. Connection: 2h 51m.</p></div></li>
-          <li><div class="time">3:42 PM<br>EST</div><div><div class="item">Fly Charlotte → Nashville</div><p class="detail">AA 5179 · Arrive BNA at 4:20 PM Central.</p></div></li>
-          <li><div class="time">4:30 PM</div><div><div class="item">Avis pickup · BNA</div><p class="detail">Updated pickup time. Only 10 minutes after scheduled landing; allow for deplaning and reaching the counter.</p><span class="status">Tight pickup buffer</span></div></li>
-          <li><div class="time">After pickup</div><div><div class="item">Check in · Sheraton Brentwood</div><p class="detail">Check-in opens at 4:00 PM. Settle in before the evening tasting.</p></div></li>
-          <li><div class="time">7:30 PM<br>–8:30 PM</div><div><div class="item">Wine tasting with Jake Hawkes</div><p class="detail">7:30–8:30 PM Central · Join on Zoom. Meeting access stays in the private calendar.</p><span class="status">Calendar-derived timing</span></div></li>
-        </ul>
-      </article>
-      <article class="day">
-        <header class="day-head">
-          <div><div class="date">WEDNESDAY · NOV 18</div><h2>Work &amp; dinner</h2></div>
-          <span class="forecast">Forecast pending</span>
-        </header>
-        <ul class="agenda">
-          <li><div class="time">Daytime</div><div><div class="item">Work commitments</div><p class="detail">See the work calendar for the day's meetings.</p></div></li>
-          <li><div class="time">Evening</div><div><div class="item">Work dinner</div><p class="detail">Planned on the work calendar; time and venue still to be supplied.</p><span class="status">Details pending</span></div></li>
-        </ul>
-      </article>
-      <article class="day">
-        <header class="day-head">
-          <div><div class="date">THURSDAY · NOV 19</div><h2>Work &amp; catch up</h2></div>
-          <span class="forecast">Forecast pending</span>
-        </header>
-        <ul class="agenda">
-          <li><div class="time">Daytime</div><div><div class="item">Work commitments</div><p class="detail">See the work calendar for the day's meetings.</p></div></li>
-          <li><div class="time">~6:30 PM</div><div><div class="item">Dinner with friends</div><p class="detail">Time is approximate; restaurant and final timing still to be decided.</p><span class="status">Tentative</span></div></li>
-        </ul>
-      </article>
-      <article class="day">
-        <header class="day-head">
-          <div><div class="date">FRIDAY · NOV 20</div><h2>Early departure</h2></div>
-          <span class="forecast">Forecast pending</span>
-        </header>
-        <ul class="agenda">
-          <li><div class="time">Before BNA</div><div><div class="item">Check out of the Sheraton</div><p class="detail">Leave before the airport run. Hotel checkout deadline is 11:00 AM.</p></div></li>
-          <li><div class="time">6:00 AM<br>Target</div><div><div class="item">Early Avis return planned</div><p class="detail">Reservation remains 7:00 AM. A 6:00 AM return is the planning target, not a confirmed booking time; verify early-return arrangements.</p><span class="status">Early return not verified</span></div></li>
-          <li><div class="time">6:30 AM<br>Target</div><div><div class="item">Inside the BNA terminal</div><p class="detail">Two hours before the 8:30 AM flight; rental return is a separate step.</p></div></li>
-          <li><div class="time">8:30 AM</div><div><div class="item">Fly Nashville → DFW</div><p class="detail">AA 1103 · Arrive 10:57 AM Central. Connection: 1h 41m.</p></div></li>
-          <li><div class="time">12:38 PM</div><div><div class="item">Fly DFW → XNA</div><p class="detail">AA 3803 · Arrive 1:54 PM Central.</p></div></li>
-        </ul>
-      </article>
-    </section>
-
-    <section class="section" id="flights" aria-labelledby="flights-title">
-      <h2 class="section-label" id="flights-title">Flights · American Airlines</h2>
-      <p class="intro">All four legs come from calendar records, not an airline confirmation. CST = Central Standard Time; EST = Eastern Standard Time.</p>
-      <div class="card">
-        <h3>Tuesday, November 17 · Outbound</h3>
-        <div class="flight">
-          <div class="flight-label">AA 3871</div>
-          <div class="route">
-            <div><div class="airport">XNA</div><div class="city">Northwest Arkansas</div><div class="flight-time">9:36 AM CST</div></div>
-            <div class="arrow" aria-label="to">→</div>
-            <div class="arrival"><div class="airport">CLT</div><div class="city">Charlotte</div><div class="flight-time">12:51 PM EST</div></div>
-          </div>
-        </div>
-        <p class="connection">Charlotte connection · 2h 51m</p>
-        <div class="flight">
-          <div class="flight-label">AA 5179</div>
-          <div class="route">
-            <div><div class="airport">CLT</div><div class="city">Charlotte</div><div class="flight-time">3:42 PM EST</div></div>
-            <div class="arrow" aria-label="to">→</div>
-            <div class="arrival"><div class="airport">BNA</div><div class="city">Nashville</div><div class="flight-time">4:20 PM CST</div></div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <h3>Friday, November 20 · Return</h3>
-        <div class="flight">
-          <div class="flight-label">AA 1103</div>
-          <div class="route">
-            <div><div class="airport">BNA</div><div class="city">Nashville</div><div class="flight-time">8:30 AM CST</div></div>
-            <div class="arrow" aria-label="to">→</div>
-            <div class="arrival"><div class="airport">DFW</div><div class="city">Dallas / Fort Worth</div><div class="flight-time">10:57 AM CST</div></div>
-          </div>
-        </div>
-        <p class="connection">DFW connection · 1h 41m</p>
-        <div class="flight">
-          <div class="flight-label">AA 3803</div>
-          <div class="route">
-            <div><div class="airport">DFW</div><div class="city">Dallas / Fort Worth</div><div class="flight-time">12:38 PM CST</div></div>
-            <div class="arrow" aria-label="to">→</div>
-            <div class="arrival"><div class="airport">XNA</div><div class="city">Northwest Arkansas</div><div class="flight-time">1:54 PM CST</div></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="stay" aria-labelledby="stay-title">
-      <h2 class="section-label" id="stay-title">Stay &amp; car</h2>
-      <div class="card">
-        <h3>Sheraton Nashville Brentwood</h3>
-        <p class="detail">Brentwood base · Three nights · November 17–20</p>
-        <p class="detail">760 Old Hickory Boulevard<br>Brentwood, TN 37027 USA</p>
-        <dl class="facts">
-          <div><dt>Check-in opens</dt><dd>Tue · 4:00 PM CST</dd></div>
-          <div><dt>Checkout deadline</dt><dd>Fri · 11:00 AM CST</dd></div>
-          <div><dt>Included</dt><dd>Wi-Fi &amp; parking</dd></div>
-          <div><dt>Breakfast</dt><dd>Not included</dd></div>
-        </dl>
-        <p class="detail"><a href="https://www.google.com/maps/search/?api=1&amp;query=Sheraton+Nashville+Brentwood" target="_blank" rel="noopener noreferrer">Open hotel in Maps ↗</a></p>
-      </div>
-      <div class="card">
-        <h3>Avis · Nashville International Airport</h3>
-        <p class="detail">Standard automatic · Airport pickup and return</p>
-        <dl class="facts">
-          <div><dt>Pickup</dt><dd>Tue Nov 17 · 4:30 PM CST</dd></div>
-          <div><dt>Booked return</dt><dd>Fri Nov 20 · 7:00 AM CST</dd></div>
-          <div><dt>Early-return target</dt><dd>6:00 AM CST · Unverified</dd></div>
-        </dl>
-        <p class="detail">Early return planned; arrangements still need verification.</p>
-      </div>
-    </section>
-
-    <section class="section" id="watch" aria-labelledby="watch-title">
-      <div class="card watch">
-        <h2 class="section-label" id="watch-title">Before departure · To confirm</h2>
-        <ul class="watch-list">
-          <li><strong>Airline schedule:</strong> Verify all four flight times with American; seats and cabin are not yet supplied.</li>
-          <li><strong>Avis pickup:</strong> The 4:30 PM slot is only 10 minutes after calendar arrival.</li>
-          <li><strong>Early car return:</strong> Verify that a 6:00 AM return is workable before relying on the 6:30 AM terminal target.</li>
-          <li><strong>Evenings:</strong> Supply Wednesday's dinner details and finalize Thursday's dinner time and venue. Tuesday's tasting is listed from the calendar.</li>
-        </ul>
-      </div>
-    </section>
+    <div class="eyebrow">Archived trip</div>
+    <h1>Nashville is no longer available</h1>
+    <p>This itinerary has been retired, so old shared links no longer show trip details.</p>
+    <a href="../menu.html">View current trip pages</a>
   </main>
-  <footer>
-    <p>Updated November 14, 2026 · Share-safe itinerary. Private booking references and meeting links remain in LifeOS.</p>
-    <p>Full daily high/low/rain forecasts are pending. <a href="https://forecast.weather.gov/MapClick.php?lat=36.1627&amp;lon=-86.7816" target="_blank" rel="noopener noreferrer">Check the Nashville forecast ↗</a></p>
-  </footer>
-  <script>
-    document.getElementById('print-button').addEventListener('click', () => window.print());
-  </script>
 </body>
 </html>
